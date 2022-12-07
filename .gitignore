@@ -339,7 +339,7 @@ OpenCover/
 ASALocalRun/
 
 # MSBuild Binary and Structured Log
-*.binlog
+#*.binlog
 
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
@@ -363,4 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # exclude test realeses
-!*.bin
+#!/NumericalMethods/ProjectsToTestLibrary/bin

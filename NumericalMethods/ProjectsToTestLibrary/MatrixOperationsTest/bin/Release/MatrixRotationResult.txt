@@ -1,0 +1,29 @@
+MatrixRotationResult.txt
+
+
+ Test of Generation Matrix U 
+  Size = 5
+    1    2    3    4    5
+    0    1    2    3    4
+    0    0    1    2    3
+    0    0    0    1    2
+    0    0    0    0    1
+
+
+ Test of true-Rotation Matrix U. Result = A 
+  Size = 5
+    5    4    3    2    1
+    4    3    2    1    0
+    3    2    1    0    0
+    2    1    0    0    0
+    1    0    0    0    0
+
+
+ Test of false-Rotation Matrix U. Result = U 
+  Size = 5
+    0    0    0    0    1
+    0    0    0    1    2
+    0    0    1    2    3
+    0    1    2    3    4
+    1    2    3    4    5
+

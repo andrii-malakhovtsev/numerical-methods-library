@@ -1,0 +1,24 @@
+CofactorResults.txt
+
+ Determinant(B) = NaN
+
+  Cofactor[2,3] =   -126692
+  Cofactor[2,3] =   -144716
+  Cofactor[2,3] =    253324
+  Cofactor[2,3] =   -124824
+  Cofactor[2,3] =    471334
+  Cofactor[2,3] =   -176716
+  Cofactor[2,3] =   -109932
+
+ Determinant(B, 2, true) = 0
+
+  Cofactor[1,3] =   1120393
+  Cofactor[2,3] =    253324
+  Cofactor[3,3] =    658942
+  Cofactor[4,3] =  -1020727
+  Cofactor[5,3] =   -745643
+  Cofactor[6,3] =   -872146
+  Cofactor[7,3] =    403062
+
+ Determinant(B, 3, false)  = 3858594
+

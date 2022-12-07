@@ -1,0 +1,20 @@
+Test2.txt
+
+Equation
+ Zeros Table of function: Test2
+  0   [   0.40000,   0.45000   ]   Root =  0.431934615246  Error =  8.3E-013  Iterations = 36
+  1   [   1.60000,   1.65000   ]   Root =  1.642743997228  Error =  6.9E-013  Iterations = 35
+  2   [   2.30000,   2.35000   ]   Root =  2.321541775472  Error =  8.5E-013  Iterations = 37
+  3   [   3.60000,   3.65000   ]   Root =  3.642432159058  Error =  6.6E-014  Iterations = 37
+  4   [   4.30000,   4.35000   ]   Root =  4.305054782074  Error =  2.9E-013  Iterations = 36
+  5   [   5.60000,   5.65000   ]   Root =  5.629595311224  Error =  5.1E-013  Iterations = 37
+  6   [   6.25000,   6.30000   ]   Root =  6.291907153042  Error =  5.1E-013  Iterations = 37
+  7   [   7.60000,   7.65000   ]   Root =  7.616517581963  Error =  9.3E-014  Iterations = 37
+  8   [   8.25000,   8.30000   ]   Root =  8.278823578358  Error =  9.6E-013  Iterations = 22
+  9   [   9.60000,   9.65000   ]   Root =  9.603435321939  Error =  5.7E-013  Iterations = 35
+ 10   [  10.25000,  10.30000   ]   Root = 10.265741208432  Error =  8.0E-013  Iterations = 37
+ 11   [  11.55000,  11.60000   ]   Root = 11.590352976731  Error =  6.6E-013  Iterations = 37
+ 12   [  12.25000,  12.30000   ]   Root = 12.252658861157  Error =  9.3E-013  Iterations = 34
+ 13   [  13.55000,  13.60000   ]   Root = 13.577270629921  Error =  8.0E-013  Iterations = 37
+ 14   [  14.20000,  14.25000   ]   Root = 14.239576514308  Error =  8.6E-014  Iterations = 37
+

@@ -1,0 +1,20 @@
+SummAndSubtractResult.txt
+
+
+ Test of: E + U = A 
+  Size = 5
+     1     0     0     0     1
+     0     1     0     1     0
+     0     0     2     0     0
+     0     1     0     1     0
+     1     0     0     0     1
+
+
+ Test of: E - U = A 
+  Size = 5
+     1     0     0     0    -1
+     0     1     0    -1     0
+     0     0     0     0     0
+     0    -1     0     1     0
+    -1     0     0     0     1
+

@@ -42,7 +42,7 @@ namespace InversionMethodTest
                 const string file = "MatrixAndVector.txt";
                 writer.WriteLine($"\r\n {file}");
 
-                FilesController.ReadMatrixAndVectorFromFile(file, out Matrix A, out Vector b, out int n);
+                FilesController.ReadMatrixWithVectorFromFile(file, out Matrix A, out Vector b, out int n);
                 writer.Write(FilesController.GetMatrixAndVectorTextFormat(A, b, true, 2, 3, "Matrix Ab"));
 
                 Matrix V = A.FirstInversion(out double err);

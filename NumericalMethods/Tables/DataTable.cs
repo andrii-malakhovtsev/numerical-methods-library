@@ -22,7 +22,12 @@ namespace NumericalMethods
                     if (Max.F < Points[i].F) { Max = Points[i]; }
                 }
             }
-            else { Points = null; Min = null; Max = null; }
+            else 
+            { 
+                Points = null;
+                Min = null;
+                Max = null;
+            }
             Title = title;
             RootsLocation();
         }

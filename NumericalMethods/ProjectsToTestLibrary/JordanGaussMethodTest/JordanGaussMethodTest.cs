@@ -17,7 +17,7 @@ namespace JordanGaussMethodTest
             using (StreamWriter writer = FilesController.WriteResultToFile("JordanGaussMethodResult.txt"))
             {
                 string file = "MatrixAndVector.txt";
-                FilesController.ReadMatrixAndVectorFromFile(file, out Matrix A, out Vector b, out int n);
+                FilesController.ReadMatrixWithVectorFromFile(file, out Matrix A, out Vector b, out int n);
                 writer.Write(FilesController.GetMatrixAndVectorTextFormat(A, b, true, 2, 1, "Matrix Ab"));
 
                 Vector X = LinearEquationsSystems.GaussJordanElimination(A, b);

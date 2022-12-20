@@ -8,7 +8,7 @@
         public Root(double leftX, double rightX)
         {
             LeftEdgeX = leftX; 
-            RightEdgeX = rightX; 
+            RightEdgeX = rightX;
             X = double.NaN;
             Error = double.NaN;
             Iterations = 0; 

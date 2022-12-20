@@ -14,7 +14,7 @@ namespace SeidelMethodTest
                 const string matrixAndVectorFileName = "MatrixAndVector.txt";
                 writer.WriteLine($"\r\n {matrixAndVectorFileName}");
 
-                FilesController.ReadMatrixAndVectorFromFile(matrixAndVectorFileName, out Matrix A, 
+                FilesController.ReadMatrixWithVectorFromFile(matrixAndVectorFileName, out Matrix A, 
                     out Vector b, out int n);
                 writer.Write(FilesController.GetMatrixAndVectorTextFormat(A, b, true, 3, 3, "Matrix Ab"));
 

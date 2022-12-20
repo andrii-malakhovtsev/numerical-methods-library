@@ -26,10 +26,16 @@ namespace NumericalMethods
 
         private static double GetSinCos(double x, double error, bool isSin, bool hyperbolic)
         {
-            if (x == 0) return isSin ? 0.0 : 1.0;
-            double firstIterationMember = isSin ? x : 1.0, toReturn = firstIterationMember, 
-                powerSeriesMemberByIndex = firstIterationMember, halfX = 0.5 * x,
-                indexSubtraction = isSin ? 0.5 : 0.0, sign = hyperbolic ? 1.0 : -1.0;
+            if (x == 0)
+            {
+                return isSin ? 0.0 : 1.0;
+            }
+            double firstIterationMember = isSin ? x : 1.0, 
+                   toReturn = firstIterationMember, 
+                   powerSeriesMemberByIndex = firstIterationMember, 
+                   halfX = 0.5 * x,
+                   indexSubtraction = isSin ? 0.5 : 0.0, 
+                   sign = hyperbolic ? 1.0 : -1.0;
             for (int index = isSin ? 2 : 1; Math.Abs(powerSeriesMemberByIndex) > error; index++)
             {
                 // powerSeriesMemberByIndex *= ... gives wrong results for some reason
@@ -42,8 +48,12 @@ namespace NumericalMethods
 
         public static double Exponent(double x, double error)
         {
-            if (x == 0) return 1.0;
-            double exponent = 1.0, powerSeriesMemberByIndex = 1.0;
+            double exponent = 1.0;
+            if (x == 0)
+            {
+                return exponent;
+            }
+            double powerSeriesMemberByIndex = exponent;
             for (int index = 1; Math.Abs(powerSeriesMemberByIndex) > error; index++)
             {
                 powerSeriesMemberByIndex *= (x / index); 

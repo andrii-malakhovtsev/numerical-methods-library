@@ -14,10 +14,10 @@ namespace CramersRuleTest
                 const string testTableFile = "TestTable.txt";
                 SW.WriteLine($"\r\n {testTableFile}");
 
-                FilesController.ReadMatrixAndVectorFromFile(testTableFile, out Matrix A, out Vector b, out int n);
+                FilesController.ReadMatrixWithVectorFromFile(testTableFile, out Matrix A, out Vector b, out int n);
                 SW.Write(FilesController.GetMatrixAndVectorTextFormat(A, b, true, 2, 1, "Matrix Ab"));
 
-                Vector X = LinearEquationsSystems.CramersRule(A, b, out Vector Dk);
+                Vector X = LinearEquationsSystems.CramerRule(A, b, out Vector Dk);
                 SW.Write(Dk.GetTextFormat(PrintType.Vertical, true, 2, 2, "Vector Dk"));
 
                 SW.Write("\r\n Solving Linear Equations Systems with Cramers Rule: ");

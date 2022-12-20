@@ -13,10 +13,16 @@ namespace NumericalMethods
         {
             get
             {
-                if (IndexInsideVector(index)) return VectorValues[index - 1];
-                else return double.NaN;
+                if (IndexInsideVector(index))
+                    return VectorValues[index - 1];
+                else
+                    return double.NaN;
             }
-            set { if (IndexInsideVector(index)) VectorValues[index - 1] = value; }
+            set
+            {
+                if (IndexInsideVector(index))
+                    VectorValues[index - 1] = value;
+            }
         }
 
         public Vector(int size)
@@ -64,17 +70,22 @@ namespace NumericalMethods
         private void SetVectorValues(double value)
         {
             for (int index = 1; index <= Size; index++)
+            {
                 this[index] = value;
+            }
         }
 
         public Vector Copy()
         {
             Vector vectorCopy = new Vector(Size);
-            for (int i = 1; i <= vectorCopy.Size; i++) vectorCopy[i] = this[i];
+            for (int i = 1; i <= vectorCopy.Size; i++)
+            {
+                vectorCopy[i] = this[i];
+            }
             return vectorCopy;
         }
 
-        public void SetExtremums(out double max, out int maxIndex,
+        public void SetExtrema(out double max, out int maxIndex,
             out double min, out int minIndex)
         {
             minIndex = -1; min = double.MaxValue;
@@ -103,8 +114,10 @@ namespace NumericalMethods
             for (int i = 1; i <= vectorSize; i++)
             {
                 operatedVector[i] = firstVector[i];
-                if (toSum) operatedVector[i] += secondVector[i];
-                else operatedVector[i] -= secondVector[i];
+                if (toSum) 
+                    operatedVector[i] += secondVector[i];
+                else 
+                    operatedVector[i] -= secondVector[i];
             }
             return operatedVector;
         }
@@ -124,7 +137,9 @@ namespace NumericalMethods
             if (vectorFirst.Size != vectorSecond.Size) return double.NaN;
             double sum = 0.0;
             for (int index = 1; index <= vectorFirst.Size; index++)
+            {
                 sum += vectorFirst[index] * vectorSecond[index];
+            }
             return sum;
         }
 
@@ -133,7 +148,9 @@ namespace NumericalMethods
             int vectorSize = vector.Size;
             Vector multipliedVector = new Vector(vectorSize);
             for (int i = 1; i <= vectorSize; i++)
+            {
                 multipliedVector[i] = numeric * vector[i];
+            }
             return multipliedVector;
         }
 
@@ -156,7 +173,9 @@ namespace NumericalMethods
             {
                 multipliedVector[widthIndex] = 0.0;
                 for (int heightIndex = 1; heightIndex <= matrixSize; heightIndex++)
+                {
                     multipliedVector[widthIndex] += matrix[widthIndex, heightIndex] * vector[heightIndex];
+                }
             }
             return multipliedVector;
         }
@@ -164,7 +183,10 @@ namespace NumericalMethods
         public double Module()
         {
             double module = 0.0;
-            for (int i = 1; i <= Size; i++) module += this[i] * this[i];
+            for (int i = 1; i <= Size; i++)
+            {
+                module += this[i] * this[i];
+            }
             return Math.Sqrt(module);
         }
 

@@ -13,12 +13,19 @@ namespace NumericalMethods
             Min = new PointXF(double.NaN, double.MaxValue);
             Max = new PointXF(double.NaN, double.MinValue);
             double hx = (xSpecific - xFirst) / specificValue, xByIndex;
+
             for (int index = 0; index <= specificValue; index++)
             {
-                xByIndex = xFirst + index * hx; 
+                xByIndex = xFirst + index * hx;
                 Points[index] = new PointXF(xByIndex, this.function(xByIndex));
-                if (Min.F > Points[index].F) { Min = Points[index]; }
-                if (Max.F < Points[index].F) { Max = Points[index]; }
+                if (Min.F > Points[index].F)
+                {
+                    Min = Points[index];
+                }
+                if (Max.F < Points[index].F)
+                {
+                    Max = Points[index];
+                }
             }
             RootsLocation();
         }
@@ -27,7 +34,9 @@ namespace NumericalMethods
         {
             if (Roots == null) return;
             foreach (Root root in Roots)
+            {
                 Equations.Dichotomy(function, root, eps);
+            }
         }
 
         public override string ToPrint(string comment)

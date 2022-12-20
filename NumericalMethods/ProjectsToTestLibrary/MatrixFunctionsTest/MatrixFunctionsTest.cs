@@ -40,7 +40,7 @@ namespace MatrixFunctionsTest
                 writer.WriteLine($"   Determinant_J = {Matrix.HeightDeterminant(A)}");
                 writer.WriteLine($"   Determinant_I = {Matrix.WidthDeterminant(A)}");
 
-                A.DecompositionLU(out Matrix L, out Matrix U);
+                A.LowerUpperDecomposition(out Matrix L, out Matrix U);
                 writer.WriteLine($" Determinant(LU) = {A.Determinant}");
             }
         }

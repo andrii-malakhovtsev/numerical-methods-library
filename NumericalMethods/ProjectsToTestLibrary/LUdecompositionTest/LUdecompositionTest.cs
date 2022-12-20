@@ -12,7 +12,7 @@ namespace LUdecompositionTest
             {
                 Matrix A = new Matrix("TestMatrix.txt");
 
-                A.DecompositionLU(out Matrix L, out Matrix U);
+                A.LowerUpperDecomposition(out Matrix L, out Matrix U);
 
                 SW.WriteLine(L.GetTextFormat(true, 1, 2, " Matrix L"));
                 SW.WriteLine($"   L.Det = {L.Determinant:F3}");

@@ -31,12 +31,23 @@ namespace NumericalMethods
                 if ((leftGraphEdge * rightGraphEdge) < 0) correctRigthGraphEdge -= leftGraphEdge;
                 graphExtremum = (leftGraphEdge + correctRigthGraphEdge) * 0.5;
                 iterationCount++;
-                if (root != null) root.Iterations = iterationCount;
+                if (root != null)
+                {
+                    root.Iterations = iterationCount;
+                }
                 if ((function(leftGraphEdge) * function(graphExtremum)) < 0)
+                {
                     rightGraphEdge = graphExtremum;
-                else leftGraphEdge = graphExtremum;
-                if (root != null) root.Error = Math.Abs(function(graphExtremum));
-                double rootError = root != null ? root.Error : Math.Abs(function(graphExtremum));
+                }
+                else
+                {
+                    leftGraphEdge = graphExtremum;
+                }
+                double rootError = Math.Abs(function(graphExtremum));
+                if (root != null)
+                {
+                    root.Error = rootError;
+                }
                 if ((rootError < error) || ((rightGraphEdge - leftGraphEdge) * 10 < error)) break;
             }
             return graphExtremum;
@@ -49,9 +60,13 @@ namespace NumericalMethods
             const int maxIterationCount = 15;
             double xByIteration = GetXByIteration(leftGraphEdge, rightGraphEdge);
             if ((function(leftGraphEdge) * functionSecondDerivative(leftGraphEdge)) > 0)
+            {
                 xByIteration = leftGraphEdge;
+            }
             if ((function(rightGraphEdge) * functionSecondDerivative(rightGraphEdge)) > 0)
+            {
                 xByIteration = rightGraphEdge;
+            }
             iterationCount = 0;
             return TangentIterations(function, functionFirstDerivative, error, 
                 ref iterationCount, maxIterationCount, xByIteration, functionDerivative: 0, 
@@ -92,10 +107,14 @@ namespace NumericalMethods
         {
             const int maxIterationCount = 15;
             root.X = GetXByIteration(root.LeftEdgeX, root.RightEdgeX);
-            if ((function(root.LeftEdgeX) * functionSecondDerivative(root.LeftEdgeX)) > 0) 
+            if ((function(root.LeftEdgeX) * functionSecondDerivative(root.LeftEdgeX)) > 0)
+            {
                 root.X = root.LeftEdgeX;
-            if ((function(root.RightEdgeX) * functionSecondDerivative(root.RightEdgeX)) > 0) 
+            }
+            if ((function(root.RightEdgeX) * functionSecondDerivative(root.RightEdgeX)) > 0)
+            {
                 root.X = root.RightEdgeX;
+            }
             root.Iterations = 0;
             while (Math.Abs(function(root.X)) > error)
             {

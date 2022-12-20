@@ -6,92 +6,129 @@ namespace NumericalMethods
     {
         private static readonly int MaxNumericPower = 10000;
 
-        public static Vector CramersRule(Matrix matrix, Vector vector, out Vector determinantVector)
+        public static Vector CramerRule(Matrix matrix, Vector vector, out Vector determinantVector)
         {
-            if (double.IsNaN(matrix.Determinant)) Matrix.HeightDeterminant(matrix);
-            if (matrix.Determinant == 0) { determinantVector = null; return null; }
+            if (double.IsNaN(matrix.Determinant))
+            {
+                Matrix.HeightDeterminant(matrix);
+            }
+            if (matrix.Determinant == 0)
+            {
+                determinantVector = null;
+                return null;
+            }
             int matrixSize = matrix.Size;
             Matrix matrixCopy = matrix.Copy();
             Vector vectorX = new Vector(matrixSize);
             determinantVector = new Vector(matrixSize);
+            int widthIndex;
             for (int matrixIndex = 1; matrixIndex <= matrixSize; matrixIndex++)
             {
-                for (int widthIndex = 1; widthIndex <= matrixSize; widthIndex++) 
+                for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
+                {
                     matrixCopy[widthIndex, matrixIndex] = vector[widthIndex];
-                determinantVector[matrixIndex] = 
+                }
+                determinantVector[matrixIndex] =
                     Matrix.GetDeterminant(matrixCopy, matrixIndex, indexForWidth: false);
                 vectorX[matrixIndex] = determinantVector[matrixIndex] / matrix.Determinant;
-                for (int widthIndex = 1; widthIndex <= matrixSize; widthIndex++) 
+                for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
+                {
                     matrixCopy[widthIndex, matrixIndex] = matrix[widthIndex, matrixIndex];
+                }
             }
             return vectorX;
         }
 
-        public static Vector SimpleIterationMethod(Matrix matrix, Vector vector, double accuracy, 
+        public static Vector SimpleIterationMethod(Matrix matrix, Vector vector, double accuracy,
             out int numericPower)
         {
-            if (double.IsNaN(matrix.Determinant)) 
+            if (double.IsNaN(matrix.Determinant))
+            {
                 matrix.Determinant = Matrix.HeightDeterminant(matrix);
-            if (matrix.Determinant == 0) { numericPower = -1; return null; }
+            }
+            if (matrix.Determinant == 0) 
+            { 
+                numericPower = -1;
+                return null; 
+            }
             int matrixSize = matrix.Size, widthIndex, heightIndex;
-            Matrix alpha = new Matrix(matrixSize); 
+            Matrix alpha = new Matrix(matrixSize);
             Vector vectorX = new Vector(matrixSize);
             for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
             {
                 for (heightIndex = 1; heightIndex <= matrixSize; heightIndex++)
+                {
                     alpha[widthIndex, heightIndex] = -matrix[widthIndex, heightIndex];
-                vectorX[widthIndex] = vector[widthIndex]; 
+                }
+                vectorX[widthIndex] = vector[widthIndex];
                 alpha[widthIndex, widthIndex] += 1.0;
             }
-            _ = new Vector(matrixSize); 
             numericPower = 0; double error;
-            while(true)
+            while (true)
             {
-                numericPower++; 
+                numericPower++;
                 Vector vectorX1 = Vector.Multiply(alpha, vectorX) + vector;
                 error = 0.0;
-                for(int index = 1; index <= matrixSize; index++)
+                for (int index = 1; index <= matrixSize; index++)
                 {
-                    error = Math.Max(error, Math.Abs(vectorX1[index] - vectorX[index])); 
+                    error = Math.Max(error, Math.Abs(vectorX1[index] - vectorX[index]));
                     vectorX[index] = vectorX1[index];
                 }
-                if (numericPower > MaxNumericPower) return null; 
-                if (error < accuracy) return vectorX1;
+                if (numericPower > MaxNumericPower) {
+                    return null;
+                }
+                if (error < accuracy) {
+                    return vectorX1;
+                }
             }
         }
 
-        public static Vector SeidelMethod(Matrix matrix, Vector vector, 
+        public static Vector SeidelMethod(Matrix matrix, Vector vector,
             double accuracy, out int numericPower)
         {
-            if (double.IsNaN(matrix.Determinant)) matrix.Determinant = Matrix.HeightDeterminant(matrix);
-            if (matrix.Determinant == 0) { numericPower = -1; return null; }
+            if (double.IsNaN(matrix.Determinant))
+            {
+                matrix.Determinant = Matrix.HeightDeterminant(matrix);
+            }
+            if (matrix.Determinant == 0)
+            {
+                numericPower = -1;
+                return null;
+            }
             int matrixSize = matrix.Size, widthIndex, heightIndex;
             Matrix transposedMatrix = matrix.Transpose();
-            Matrix symmetricMatrix = transposedMatrix * matrix; 
+            Matrix symmetricMatrix = transposedMatrix * matrix;
             Vector transposedVector = Vector.Multiply(transposedMatrix, vector);
-            Matrix alpha = new Matrix(matrixSize); 
+            Matrix alpha = new Matrix(matrixSize);
             Vector betta = new Vector(matrixSize);
             for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
+            {
                 for (heightIndex = 1; heightIndex <= matrixSize; heightIndex++)
-                    if (widthIndex != heightIndex) alpha[widthIndex, heightIndex] = 
-                            -symmetricMatrix[widthIndex, heightIndex] / symmetricMatrix[widthIndex, widthIndex]; 
+                {
+                    if (widthIndex != heightIndex)
+                    {
+                        alpha[widthIndex, heightIndex] =
+                              -symmetricMatrix[widthIndex, heightIndex] / symmetricMatrix[widthIndex, widthIndex];
+                    }
                     else alpha[widthIndex, widthIndex] = 0.0;
-            Vector vectorX = new Vector(matrixSize);
-            for (widthIndex = 1; widthIndex<= matrixSize; widthIndex++) 
-            { 
-                betta[widthIndex] = transposedVector[widthIndex] / symmetricMatrix[widthIndex, widthIndex]; 
-                vectorX[widthIndex] = betta[widthIndex]; 
+                }
             }
-            Vector vectorX1 = new Vector(matrixSize); 
+            Vector vectorX = new Vector(matrixSize);
+            for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
+            {
+                betta[widthIndex] = transposedVector[widthIndex] / symmetricMatrix[widthIndex, widthIndex];
+                vectorX[widthIndex] = betta[widthIndex];
+            }
+            Vector vectorX1 = new Vector(matrixSize);
             double sum, error; numericPower = 0;
-            while(true)
+            while (true)
             {
                 for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
                 {
                     sum = betta[widthIndex];
                     for (heightIndex = 1; heightIndex < widthIndex; heightIndex++)
                         sum += vectorX1[heightIndex] * alpha[widthIndex, heightIndex];
-                    for (heightIndex = widthIndex; heightIndex <= matrixSize; heightIndex++) 
+                    for (heightIndex = widthIndex; heightIndex <= matrixSize; heightIndex++)
                         sum += vectorX[heightIndex] * alpha[widthIndex, heightIndex];
                     vectorX1[widthIndex] = sum;
                 }
@@ -101,8 +138,12 @@ namespace NumericalMethods
                     error = Math.Max(error, Math.Abs(vectorX1[index] - vectorX[index]));
                     vectorX[index] = vectorX1[index];
                 }
-                if (error < accuracy) return vectorX;
-                if (numericPower > MaxNumericPower) return null;
+                if (error < accuracy) {
+                    return vectorX;
+                }
+                if (numericPower > MaxNumericPower) {
+                    return null;
+                }
             }
         }
 
@@ -116,10 +157,14 @@ namespace NumericalMethods
             {
                 result[widthIndex] = vectorCopy[widthIndex];
                 for (int heightIndex = matrixSize; heightIndex >= (widthIndex + 1); heightIndex--)
+                {
                     result[widthIndex] -= result[heightIndex] * matrixCopy[widthIndex, heightIndex];
+                }
             }
             if (double.IsNaN(matrix.Determinant))
+            {
                 matrix.Determinant = determinant * sign;
+            }
             return result;
         }
 
@@ -128,71 +173,98 @@ namespace NumericalMethods
             GaussAlgorithm(matrix, vector, out double determinant, out int matrixSize,
                 out int sign, out Matrix matrixCopy, out Vector vectorCopy);
             for (int heightIndex = matrixSize; heightIndex >= 2; heightIndex--)
+            {
                 for (int widthIndex = 1; widthIndex <= (heightIndex - 1); widthIndex++)
+                {
                     vectorCopy[widthIndex] -= vectorCopy[heightIndex] * matrixCopy[widthIndex, heightIndex];
-            if (double.IsNaN(matrix.Determinant)) matrix.Determinant = determinant * sign;
+                }
+            }
+            if (double.IsNaN(matrix.Determinant))
+            {
+                matrix.Determinant = determinant * sign;
+            }
             return vectorCopy.Copy();
         }
 
-        private static void GaussAlgorithm(Matrix matrix, Vector vector, out double determinant, 
+        private static void GaussAlgorithm(Matrix matrix, Vector vector, out double determinant,
             out int matrixSize, out int sign, out Matrix matrixCopy, out Vector vectorCopy)
         {
             int widthIndex, heightIndex;
             double absoluteNumber, matrixMain;
             determinant = 1.0;
-            int secondHeightIndex, heightIndexCopy;
             matrixSize = matrix.Size;
             sign = 1;
             matrixCopy = matrix.Copy();
             vectorCopy = vector.Copy();
-            for (heightIndex = 1; heightIndex <= matrixSize; heightIndex++)
+            for (int index = 1; index <= matrixSize; index++)
             {
-                matrixMain = Math.Abs(matrixCopy[heightIndex, heightIndex]);
-                heightIndexCopy = heightIndex;
-                for (widthIndex = heightIndex + 1; widthIndex <= matrixSize; widthIndex++)
+                SetHeightIndexCopy(matrixSize, matrixCopy, index, out int heightIndexCopy);
+                SetCorrectHeightIndexes(matrixSize, ref sign, matrixCopy, vectorCopy, index, 
+                    heightIndexCopy);
+                matrixMain = matrixCopy[index, index];
+                for (heightIndex = index; heightIndex <= matrixSize; heightIndex++)
                 {
-                    absoluteNumber = Math.Abs(matrixCopy[widthIndex, heightIndex]);
-                    if (absoluteNumber > matrixMain)
-                    {
-                        matrixMain = absoluteNumber;
-                        heightIndexCopy = widthIndex;
-                    }
+                    matrixCopy[index, heightIndex] /= matrixMain;
                 }
-                if (heightIndexCopy != heightIndex)
-                {
-                    for (secondHeightIndex = 1; secondHeightIndex <= matrixSize; secondHeightIndex++)
-                    {
-                        absoluteNumber = matrixCopy[heightIndexCopy, secondHeightIndex];
-                        matrixCopy[heightIndexCopy, secondHeightIndex] =
-                            matrixCopy[heightIndex, secondHeightIndex];
-                        matrixCopy[heightIndex, secondHeightIndex] = absoluteNumber;
-                    }
-                    absoluteNumber = vectorCopy[heightIndexCopy];
-                    vectorCopy[heightIndexCopy] = vectorCopy[heightIndex];
-                    vectorCopy[heightIndex] = absoluteNumber; sign = -sign;
-                }
-                matrixMain = matrixCopy[heightIndex, heightIndex];
-                for (secondHeightIndex = heightIndex; secondHeightIndex <= matrixSize; secondHeightIndex++)
-                    matrixCopy[heightIndex, secondHeightIndex] /= matrixMain;
-                vectorCopy[heightIndex] /= matrixMain;
+                vectorCopy[index] /= matrixMain;
                 determinant *= matrixMain;
-                for (widthIndex = heightIndex + 1; widthIndex <= matrixSize; widthIndex++)
+                for (widthIndex = index + 1; widthIndex <= matrixSize; widthIndex++)
                 {
-                    absoluteNumber = matrixCopy[widthIndex, heightIndex];
-                    for (secondHeightIndex = heightIndex; secondHeightIndex <= matrixSize; secondHeightIndex++)
-                        matrixCopy[widthIndex, secondHeightIndex] -=
-                            matrixCopy[heightIndex, secondHeightIndex] * absoluteNumber;
-                    vectorCopy[widthIndex] -= vectorCopy[heightIndex] * absoluteNumber;
+                    absoluteNumber = matrixCopy[widthIndex, index];
+                    for (heightIndex = index; heightIndex <= matrixSize; heightIndex++)
+                    {
+                        matrixCopy[widthIndex, heightIndex] -=
+                            matrixCopy[index, heightIndex] * absoluteNumber;
+                    }
+                    vectorCopy[widthIndex] -= vectorCopy[index] * absoluteNumber;
+                }
+            }
+        }
+
+        private static void SetCorrectHeightIndexes(int matrixSize, ref int sign, Matrix matrixCopy, 
+            Vector vectorCopy, int index, int heightIndexCopy)
+        {
+            double absoluteNumber;
+            if (heightIndexCopy != index)
+            {
+                for (int heightIndex = 1; heightIndex <= matrixSize; heightIndex++)
+                {
+                    absoluteNumber = matrixCopy[heightIndexCopy, heightIndex];
+                    matrixCopy[heightIndexCopy, heightIndex] =
+                        matrixCopy[index, heightIndex];
+                    matrixCopy[index, heightIndex] = absoluteNumber;
+                }
+                absoluteNumber = vectorCopy[heightIndexCopy];
+                vectorCopy[heightIndexCopy] = vectorCopy[index];
+                vectorCopy[index] = absoluteNumber; sign = -sign;
+            }
+        }
+
+        private static void SetHeightIndexCopy(int matrixSize, Matrix matrixCopy, int index, 
+            out int heightIndexCopy)
+        {
+            double absoluteNumber, matrixMain;
+            matrixMain = Math.Abs(matrixCopy[index, index]);
+            heightIndexCopy = index;
+            for (int widthIndex = index + 1; widthIndex <= matrixSize; widthIndex++)
+            {
+                absoluteNumber = Math.Abs(matrixCopy[widthIndex, index]);
+                if (absoluteNumber > matrixMain)
+                {
+                    matrixMain = absoluteNumber;
+                    heightIndexCopy = widthIndex;
                 }
             }
         }
 
         public static double AccuracyError(Matrix matrix, Vector vector, Vector vectorB)
         {
-            double error = 0.0; 
-            Vector bc = Vector.Multiply(matrix, vector);
-            for (int index = 1; index <= matrix.Size; index++) 
-                error += (vectorB[index] - bc[index]) * (vectorB[index] - bc[index]);
+            double error = 0.0;
+            Vector matrixByVector = Vector.Multiply(matrix, vector);
+            for (int index = 1; index <= matrix.Size; index++)
+            {
+                error += (vectorB[index] - matrixByVector[index]) * (vectorB[index] - matrixByVector[index]);
+            }
             return Math.Sqrt(error) / matrix.Size;
         }
     }

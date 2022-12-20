@@ -21,7 +21,9 @@ namespace NumericalMethods
                 writer.WriteLine(file + ":\r\n");
                 writer.Flush();
                 using (StreamReader reader = new StreamReader(projectDirectory + '\\' + file))
+                {
                     reader.BaseStream.CopyTo(writer.BaseStream);
+                }
                 writer.WriteLine("\r\n// -------------------------------------- //\r\n");
             }
             writer.Write(fileName);
@@ -29,33 +31,40 @@ namespace NumericalMethods
             return writer;
         }
 
-        public static void ReadMatrixAndVectorFromFile(string path, out Matrix matrix,
+        public static void ReadMatrixWithVectorFromFile(string path, out Matrix matrix,
             out Vector vector, out int readInt)
         {
             FileInfo file = new FileInfo(path);
-            if (CheckForRightExtension(file.Extension))
+            if (CheckForTextExtension(file.Extension))
             {
                 StreamReader reader = new StreamReader(file.OpenRead());
                 readInt = Convert.ToInt32(reader.ReadLine()); 
-                matrix = new Matrix(readInt); vector = new Vector(readInt);
+                matrix = new Matrix(readInt); 
+                vector = new Vector(readInt);
                 for (s_widthIndex = 1; s_widthIndex <= readInt; s_widthIndex++)
                 {
                     string[] dataFromFile = GetDataFromFile(reader);
-                    for (s_heightIndex = 1; s_heightIndex <= readInt; s_heightIndex++) 
+                    for (s_heightIndex = 1; s_heightIndex <= readInt; s_heightIndex++)
+                    {
                         matrix[s_widthIndex, s_heightIndex] = Convert.ToDouble(dataFromFile[s_heightIndex - 1]);
+                    }
                     vector[s_widthIndex] = Convert.ToDouble(dataFromFile[readInt]);
                 }
                 reader.Close(); return;
             }
-            else { matrix = null; vector = null; readInt = 0; }
+            else
+            {
+                matrix = null; 
+                vector = null; 
+                readInt = 0; 
+            }
         }
 
         private static bool SetMatrixOrVectorFromFile(Matrix matrix, Vector vector, string path)
         {
             bool setMatrix = matrix != null;
-            if (!setMatrix && vector == null) throw new ArgumentNullException(); 
             FileInfo file = new FileInfo(path);
-            bool rightFileExtension = CheckForRightExtension(file.Extension);
+            bool rightFileExtension = CheckForTextExtension(file.Extension);
             if (rightFileExtension)
             {
                 StreamReader reader = new StreamReader(file.OpenRead());
@@ -64,24 +73,33 @@ namespace NumericalMethods
                     matrix.Size = Convert.ToInt32(reader.ReadLine());
                     matrix.MatrixValues = new double[matrix.Size, matrix.Size];
                 }
-                else 
-                { 
+                else
+                {
                     vector.Size = Convert.ToInt32(reader.ReadLine());
                     vector.VectorValues = new double[vector.Size];
                 }
                 int size = setMatrix ? matrix.Size : vector.Size;
-                for (s_widthIndex = 1; s_widthIndex <= size; s_widthIndex++)
-                {
-                    string[] dataFromFile = GetDataFromFile(reader);
-                    if (setMatrix)
-                        for (s_heightIndex = 1; s_heightIndex <= size; s_heightIndex++)
-                            matrix[s_widthIndex, s_heightIndex] = 
-                                Convert.ToDouble(dataFromFile[s_heightIndex - 1]);
-                    else vector[s_widthIndex] = Convert.ToDouble(dataFromFile[s_widthIndex - 1]);
-                }
+                GetMatrixOrVectorFromFile(matrix, vector, setMatrix, reader, size);
                 reader.Close();
             }
             return rightFileExtension;
+        }
+
+        private static void GetMatrixOrVectorFromFile(Matrix matrix, Vector vector, bool setMatrix, StreamReader reader, int size)
+        {
+            for (s_widthIndex = 1; s_widthIndex <= size; s_widthIndex++)
+            {
+                string[] dataFromFile = GetDataFromFile(reader);
+                if (setMatrix)
+                {
+                    for (s_heightIndex = 1; s_heightIndex <= size; s_heightIndex++)
+                    {
+                        matrix[s_widthIndex, s_heightIndex] =
+                            Convert.ToDouble(dataFromFile[s_heightIndex - 1]);
+                    }
+                }
+                else vector[s_widthIndex] = Convert.ToDouble(dataFromFile[s_widthIndex - 1]);
+            }
         }
 
         public static bool SetMatrixFromFile(Matrix matrix, string path)
@@ -103,10 +121,10 @@ namespace NumericalMethods
             return numbers;
         }
 
-        private static bool CheckForRightExtension(string extension)
+        private static bool CheckForTextExtension(string extension)
         {
-            const string rightExtension = ".txt";
-            return extension == rightExtension;
+            const string textExtension = ".txt";
+            return extension == textExtension;
         }
 
         public static List<PointXF> WriteDataTableToFile(DataTable dataTable, string path, string title)
@@ -115,7 +133,7 @@ namespace NumericalMethods
             FileInfo file = new FileInfo(path);
             int index = -1;
             dataTable.FileTable = $"\r\n Table {title} in file {file.Name}:\r\n";
-            if (CheckForRightExtension(file.Extension))
+            if (CheckForTextExtension(file.Extension))
             {
                 StreamReader reader = new StreamReader(file.OpenRead());
                 while (!reader.EndOfStream)
@@ -167,15 +185,6 @@ namespace NumericalMethods
             return text;
         }
 
-        private static void RefreshMaxK(Matrix matrix, Vector vector, out int k, ref int maxK)
-        {
-            double value = matrix != null ?
-                Math.Abs(matrix[s_widthIndex, s_heightIndex]) : Math.Abs(vector[s_widthIndex]);
-            if (value < MaxVectorValue) k = 1;
-            else k = (int)Math.Ceiling(Math.Log10(value));
-            maxK = Math.Max(maxK, k);
-        }
-
         private static string GetFormatString(int fd, int k, string formName)
         {
             return "{0," + $"{k}" + ":" + formName + $"{fd}" + "}";
@@ -200,12 +209,17 @@ namespace NumericalMethods
             if (!getMatrix && vector == null) throw new ArgumentNullException();
             int size = getMatrix ? matrix.Size : vector.Size, ka = 0;
             string text = "\r\n";
-            if (title != "") text += " " + title + $"  Size = {size}\r\n";
+            if (title != "")
+            {
+                text += " " + title + $"  Size = {size}\r\n";
+            }
             if (form)
             {
                 int maxKa = 0;
-                if (getMatrix) GetMatrixValues(matrix, ref ka, ref maxKa);
-                else GetVectorValues(vector, ref ka, ref maxKa);
+                if (getMatrix) 
+                    RefreshMatrixValues(matrix, ref ka, ref maxKa);
+                else 
+                    RefreshVectorValues(vector, ref ka, ref maxKa);
                 ka = fs + SmallIndent + maxKa + SmallIndent + fd;
                 format = GetFormatString(fd, ka, formatF: true);
             }
@@ -226,48 +240,58 @@ namespace NumericalMethods
         public static string GetVectorTextFormat(Vector vector, PrintType type, bool form, 
             int fs, int fd, string title)
         {
-            string format = "", text = GetTextFormat(matrix: null, vector, form, fs, fd, title, ref format);
+            string format = "", 
+                   text = GetTextFormat(matrix: null, vector, form, fs, fd, title, ref format);
             for (int index = 1; index <= vector.Size; index++)
             {
                 switch (type)
                 {
                     case PrintType.Horizontal:
-                        text += string.Format(format, vector[index]); break;
+                        text += string.Format(format, vector[index]); 
+                        break;
                     case PrintType.Vertical:
-                        text += $"{index,3}" + string.Format(format, vector[index]) + "\r\n"; break;
+                        text += $"{index,3}" + string.Format(format, vector[index]) + "\r\n"; 
+                        break;
                 }
             }
-            switch (type)
+            if (type == PrintType.Horizontal)
             {
-                case PrintType.Horizontal: return text + "\r\n";
-                case PrintType.Vertical: return text;
+                text += "\r\n";
             }
-            return "";
+            return text;
         }
 
-        private static void GetMatrixValues(Matrix matrix, ref int ka, ref int maxKa)
+        private static void RefreshMatrixValues(Matrix matrix, ref int ka, ref int maxKa)
         {
             for (s_widthIndex = 1; s_widthIndex <= matrix.Size; s_widthIndex++)
             {
                 for (s_heightIndex = 1; s_heightIndex <= matrix.Size; s_heightIndex++)
                 {
-                    double a = Math.Abs(matrix[s_widthIndex, s_heightIndex]);
-                    if (a < MaxVectorValue) ka = 1;
-                    else ka = (int)Math.Ceiling(Math.Log10(a));
-                    maxKa = Math.Max(maxKa, ka);
+                    RefreshValues(ref maxKa, ref ka, absoluteValue: Math.Abs(matrix[s_widthIndex, s_heightIndex]));
                 }
             }
         }
 
-        private static void GetVectorValues(Vector vector, ref int ka, ref int maxKa)
+        private static void RefreshVectorValues(Vector vector, ref int ka, ref int maxKa)
         {
             for (int index = 1; index <= vector.Size; index++)
             {
-                double a = Math.Abs(vector[index]);
-                if (a < MaxVectorValue) ka = 1;
-                else ka = (int)Math.Ceiling(Math.Log10(a));
-                maxKa = Math.Max(maxKa, ka);
+                RefreshValues(ref maxKa, ref ka, absoluteValue: Math.Abs(vector[index]));
             }
+        }
+
+        private static void RefreshMaxK(Matrix matrix, Vector vector, out int k, ref int maxK)
+        {
+            double value = matrix != null ?
+                Math.Abs(matrix[s_widthIndex, s_heightIndex]) : Math.Abs(vector[s_widthIndex]);
+            k = 0;
+            RefreshValues(ref maxK, ref k, value);
+        }
+
+        private static void RefreshValues(ref int maxKa, ref int ka, double absoluteValue)
+        {
+            ka = absoluteValue < MaxVectorValue ? 1 : (int)Math.Ceiling(Math.Log10(absoluteValue));
+            maxKa = Math.Max(maxKa, ka);
         }
     }
 }

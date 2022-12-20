@@ -15,7 +15,7 @@ namespace SimpleIterationMethodTest
                 const string testTableFile = "TestTable.txt";
                 writer.WriteLine($"\r\n {testTableFile}");
 
-                FilesController.ReadMatrixAndVectorFromFile(testTableFile, out Matrix A, out Vector b, out int n);
+                FilesController.ReadMatrixWithVectorFromFile(testTableFile, out Matrix A, out Vector b, out int n);
                 writer.Write(FilesController.GetMatrixAndVectorTextFormat(A, b, true, 2, 3, "Matrix Ab"));
 
                 writer.Write("\r\n Solving Linear Equations Systems with Simple Iteration Method:");

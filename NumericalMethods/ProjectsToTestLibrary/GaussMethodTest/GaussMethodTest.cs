@@ -12,7 +12,7 @@ namespace GaussMethodTest
             using (StreamWriter writer = FilesController.WriteResultToFile("GaussMethodResult.txt"))
             {
                 const string testTableFile = "TestTable.txt";
-                FilesController.ReadMatrixAndVectorFromFile(testTableFile, out Matrix A, out Vector b, out int n);
+                FilesController.ReadMatrixWithVectorFromFile(testTableFile, out Matrix A, out Vector b, out int n);
                 writer.Write(FilesController.GetMatrixAndVectorTextFormat(A, b, true, 2, 1, "Matrix Ab"));
 
                 Vector X = LinearEquationsSystems.GaussMethod(A, b);

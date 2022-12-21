@@ -7,7 +7,7 @@ namespace DataTableTest
 {
     class DataTableTest
     {
-        static void Main(string[] args)
+        static void Main()
         {
             using (StreamWriter writer = FilesController.WriteResultToFile("DataTableResult.txt"))
             {

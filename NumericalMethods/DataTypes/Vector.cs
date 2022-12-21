@@ -7,6 +7,7 @@ namespace NumericalMethods
 
     public class Vector
     {
+        public const double MaxValue = 10.0;
         public double[] VectorValues { get; set; }
         public int Size { get; set; }
         public double this[int index]
@@ -145,11 +146,10 @@ namespace NumericalMethods
 
         private static Vector MultiplyVectorByNumeric(Vector vector, double numeric)
         {
-            int vectorSize = vector.Size;
-            Vector multipliedVector = new Vector(vectorSize);
-            for (int i = 1; i <= vectorSize; i++)
+            Vector multipliedVector = new Vector(vector.Size);
+            for (int index = 1; index <= vector.Size; index++)
             {
-                multipliedVector[i] = numeric * vector[i];
+                multipliedVector[index] = numeric * vector[index];
             }
             return multipliedVector;
         }
@@ -183,16 +183,18 @@ namespace NumericalMethods
         public double Module()
         {
             double module = 0.0;
-            for (int i = 1; i <= Size; i++)
+            for (int index = 1; index <= Size; index++)
             {
-                module += this[i] * this[i];
+                module += this[index] * this[index];
             }
             return Math.Sqrt(module);
         }
 
-        public string GetTextFormat(PrintType type, bool form, int fs, int fd, string title)
+        public string GetTextFormat(PrintType type, bool form, int forwardFormatIndent, 
+            int formatIndent, string title)
         {
-            return FilesController.GetVectorTextFormat(vector: this, type, form, fs, fd, title);
+            return TextFormater.GetVectorTextFormat(vector: this, type, form, forwardFormatIndent,
+                formatIndent, title);
         }
     }
 }

@@ -35,9 +35,9 @@ namespace NumericalMethods
             switch (type)
             {
                 case MatrixType.Simple:
-                    MatrixLoop(delegate (int widthIndex, int heightIndex) 
-                    { 
-                        this[widthIndex, heightIndex] = double.NaN; 
+                    MatrixLoop(delegate (int widthIndex, int heightIndex)
+                    {
+                        this[widthIndex, heightIndex] = double.NaN;
                     });
                     break;
                 case MatrixType.Identity:
@@ -128,9 +128,9 @@ namespace NumericalMethods
         public Matrix GetAttached()
         {
             Matrix attachedMatrix = new Matrix(Size);
-            MatrixLoop(delegate (int widthIndex, int heightIndex) 
-            { 
-                attachedMatrix[heightIndex, widthIndex] = Cofactor(widthIndex, heightIndex); 
+            MatrixLoop(delegate (int widthIndex, int heightIndex)
+            {
+                attachedMatrix[heightIndex, widthIndex] = Cofactor(widthIndex, heightIndex);
             });
             return attachedMatrix;
         }
@@ -434,9 +434,9 @@ namespace NumericalMethods
             return rotatedMatrix;
         }
 
-        public string GetTextFormat(bool form, int fs, int fd, string title)
+        public string GetTextFormat(bool form, int forwardFormatIndent, int formatIndent, string title)
         {
-            return FilesController.GetMatrixTextFormat(matrix: this, form, fs, fd, title);
+            return TextFormater.GetMatrixTextFormat(matrix: this, form, forwardFormatIndent, formatIndent, title);
         }
     }
 }

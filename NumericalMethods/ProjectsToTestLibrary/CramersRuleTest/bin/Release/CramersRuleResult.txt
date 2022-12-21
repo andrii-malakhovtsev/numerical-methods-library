@@ -34,4 +34,4 @@ CramersRuleResult.txt
   7   6.0000000000
   8  -1.0000000000
 
- Deteminant|A| =   2862112.00  Error =   0.0E+000
+ Determinant|A| =   2862112.00  Error =   0.0E+000

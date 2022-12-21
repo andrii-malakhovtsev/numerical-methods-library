@@ -57,7 +57,7 @@ namespace NumericalMethods
             Func<double, double> functionFirstDerivative, Func<double, double> functionSecondDerivative, 
             double leftGraphEdge, double rightGraphEdge, double error, out int iterationCount)
         {
-            const int maxIterationCount = 15;
+            const int maxIterationsCount = 15;
             double xByIteration = GetXByIteration(leftGraphEdge, rightGraphEdge);
             if ((function(leftGraphEdge) * functionSecondDerivative(leftGraphEdge)) > 0)
             {
@@ -69,20 +69,20 @@ namespace NumericalMethods
             }
             iterationCount = 0;
             return TangentIterations(function, functionFirstDerivative, error, 
-                ref iterationCount, maxIterationCount, xByIteration, functionDerivative: 0, 
+                ref iterationCount, maxIterationsCount, xByIteration, functionDerivative: 0, 
                 firstDerivative: true);
         }
 
         public static double Tangent(Func<double, double> function, double leftGraphEdge,
             double rightGraphEdge, double error, out int iterationCount)
         {
-            const int maxIterationCount = 25;
+            const int maxIterationsCount = 25;
             double xByIteration = GetXByIteration(leftGraphEdge, rightGraphEdge),
                 functionDerivative = (function(rightGraphEdge) - function(leftGraphEdge))
                 / (rightGraphEdge - leftGraphEdge);
             iterationCount = 0;
             return TangentIterations(function, functionFirstDerivative: null, error, ref iterationCount, 
-                maxIterationCount, xByIteration, functionDerivative, firstDerivative: false);
+                maxIterationsCount, xByIteration, functionDerivative, firstDerivative: false);
         }
 
         private static double TangentIterations(Func<double, double> function, 

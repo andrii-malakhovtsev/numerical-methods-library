@@ -21,10 +21,15 @@ namespace NumericalMethods
                 firstSeries.Points.AddXY(x[i], y[i]);
                 functionMin = Math.Min(functionMin, y[i]); functionMax = Math.Max(functionMax, y[i]);
             }
-            SetStandrartOptions(firstSeries, chartType: SeriesChartType.Spline, 
-                markerStyle: MarkerStyle.None, borderWidth: 3, color: Color.DarkBlue,
-                axisXMin: x[0], axisXMax: x[width],
-                axisYMin: functionMin, axisYMax: functionMax);
+            SetStandrartOptions(firstSeries, 
+                chartType: SeriesChartType.Spline, 
+                markerStyle: MarkerStyle.None, 
+                borderWidth: 3, 
+                color: Color.DarkBlue,
+                axisXMin: x[0], 
+                axisXMax: x[width],
+                axisYMin: functionMin, 
+                axisYMax: functionMax);
             GraphicsChart.Invalidate();
         }
 
@@ -39,10 +44,15 @@ namespace NumericalMethods
                 firstSeries.Points.AddXY(table.X(i), table.F(i));
                 functionMin = Math.Min(functionMin, table.F(i)); functionMax = Math.Max(functionMax, table.F(i));
             }
-            SetStandrartOptions(firstSeries, chartType: SeriesChartType.Point,
-                markerStyle: MarkerStyle.Circle, borderWidth: 3, color: Color.DarkBlue,
-                axisXMin: table.X(0), axisXMax: table.X(width),
-                axisYMin: functionMin, axisYMax: functionMax);
+            SetStandrartOptions(firstSeries, 
+                chartType: SeriesChartType.Point,
+                markerStyle: MarkerStyle.Circle, 
+                borderWidth: 3, 
+                color: Color.DarkBlue,
+                axisXMin: table.X(0), 
+                axisXMax: table.X(width),
+                axisYMin: functionMin, 
+                axisYMax: functionMax);
             GraphicsChart.Invalidate();
         }
 
@@ -82,7 +92,9 @@ namespace NumericalMethods
             const int markerSize = 5;
             int tableWidth = table.Length - 1;
             for (int i = 0; i <= tableWidth; i++)
+            {
                 series.Points.AddXY(table.Points[i].X, table.Points[i].F);
+            }
             series.ChartType = SeriesChartType.Point;
             series.MarkerStyle = MarkerStyle.Circle;
             series.MarkerSize = markerSize;

@@ -9,7 +9,7 @@ namespace PowerSeriesValuesTest
     {
         static double A, B, C, e, d0, d1, d2, d3, d4, error;
 
-        static void Main(string[] args)
+        static void Main()
         {
             Console.Write(TestSinCos());
             Console.WriteLine();

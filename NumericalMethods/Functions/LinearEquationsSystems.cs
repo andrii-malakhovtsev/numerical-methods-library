@@ -74,10 +74,12 @@ namespace NumericalMethods
                     error = Math.Max(error, Math.Abs(vectorX1[index] - vectorX[index]));
                     vectorX[index] = vectorX1[index];
                 }
-                if (numericPower > MaxNumericPower) {
+                if (numericPower > MaxNumericPower) 
+                {
                     return null;
                 }
-                if (error < accuracy) {
+                if (error < accuracy) 
+                {
                     return vectorX1;
                 }
             }
@@ -138,10 +140,12 @@ namespace NumericalMethods
                     error = Math.Max(error, Math.Abs(vectorX1[index] - vectorX[index]));
                     vectorX[index] = vectorX1[index];
                 }
-                if (error < accuracy) {
+                if (error < accuracy) 
+                {
                     return vectorX;
                 }
-                if (numericPower > MaxNumericPower) {
+                if (numericPower > MaxNumericPower) 
+                {
                     return null;
                 }
             }

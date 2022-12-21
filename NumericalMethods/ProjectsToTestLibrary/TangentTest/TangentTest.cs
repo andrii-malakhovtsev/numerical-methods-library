@@ -10,17 +10,17 @@ namespace TangentTest
     {
         const double Error = 1.0E-12;
 
-        static void Main(string[] args)
+        static void Main()
         {
             using (StreamWriter writer = FilesController.WriteResultToFile("TangentResult.txt"))
             {
-                const double xo = -0.5, xn = 0.5;
-                const int n = 340;
-                FunctionTable T_Fx = new FunctionTable(xo, xn, n, Fx, "Fx");
+                const double xByZero = -0.5, xByIteration = 0.5;
+                const int iterationsCount = 340;
+                FunctionTable T_Fx = new FunctionTable(xByZero, xByIteration, iterationsCount, Fx, "Fx");
                 T_Fx.RootsCorrection(Error);
                 writer.Write(T_Fx.RootsTable(" -------- TangentTest -------- "));
                 double xr = double.NaN;
-                writer.WriteLine($"  x0 = {xo}, xn = {xn}, n = {n}");
+                writer.WriteLine($"  x0 = {xByZero}, xn = {xByIteration}, n = {iterationsCount}");
                 for (int j = 0; j < T_Fx.Roots.Count; j++)
                 {
                     xr = Equations.Tangent(Fx, Determinant1F, Determinant2F, 
@@ -32,7 +32,7 @@ namespace TangentTest
             }
         }
 
-        public static double Fx(double x)
+        public static double Fx(double x) // constant function we are testing
         {
             return Math.Cos(Math.Sqrt(7.0) * x - 1.0) + 1.0 - Math.Exp(-x / Math.PI);
         }

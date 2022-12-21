@@ -10,9 +10,9 @@ namespace NumericSeriesSumTest
         private const double a = 1.13, b = -2.56, c = 0.84,
             d = -3.79, error = 1.0E-9, dlt = 1.0E-8;
 
-        static void Main(string[] args)
+        static void Main()
         {
-            using (StreamWriter writer = 
+            using (StreamWriter writer =
                 NumericalMethods.FilesController.WriteResultToFile("NumericSeriesSumResult.txt",
                 "NumericSeriesSumTest.cs"))
             {
@@ -31,7 +31,7 @@ namespace NumericSeriesSumTest
 
         public static double Sk(int k)
         {
-            return Math.Pow((k + 5.0 / k), 1.0/4.0) / (Math.Sqrt(5.0 * k) - 3.0) / (2.0 * k - 7.0);
+            return Math.Pow((k + 5.0 / k), 1.0 / 4.0) / (Math.Sqrt(5.0 * k) - 3.0) / (2.0 * k - 7.0);
         }
 
         public static double Si(int i)
@@ -44,7 +44,7 @@ namespace NumericSeriesSumTest
         public static double Sj(int j)
         {
             double j2 = 1.0 * j * j;
-            double x1 = (d - 2.0 * Math.Pow(j,-1));
+            double x1 = (d - 2.0 * Math.Pow(j, -1));
             double x2 = Math.Sqrt(j + c) * (j2 + 9.0);
             if ((j % 2) == 0) return -x1 / x2; else return x1 / x2;
         }

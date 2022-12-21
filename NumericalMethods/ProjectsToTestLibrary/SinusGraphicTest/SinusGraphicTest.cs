@@ -5,7 +5,7 @@ namespace SinusGraphicTest
 {
     class SinusGraphicTest
     {
-        static void Main(string[] args)
+        static void Main()
         {
             SinusGraphic(iterations: 100, 
                 xByZero: - Math.PI, 

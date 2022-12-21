@@ -7,18 +7,20 @@ namespace GaussMethodTest
 {
     class GaussMethodTest
     {
-        static void Main(string[] args)
+        static void Main()
         {
             using (StreamWriter writer = FilesController.WriteResultToFile("GaussMethodResult.txt"))
             {
                 const string testTableFile = "TestTable.txt";
                 FilesController.ReadMatrixWithVectorFromFile(testTableFile, out Matrix A, out Vector b, out int n);
-                writer.Write(FilesController.GetMatrixAndVectorTextFormat(A, b, true, 2, 1, "Matrix Ab"));
+                writer.Write(TextFormater.GetMatrixAndVectorTextFormat(A, b, 
+                    form: true, forwardFormatIndent: 2, formatIndent: 1, "Matrix Ab"));
 
                 Vector X = LinearEquationsSystems.GaussMethod(A, b);
 
                 writer.Write("\r\n  Solving Linear Equations Systems with Gauss Method: ");
-                writer.Write(X.GetTextFormat(PrintType.Vertical, true, 3, 12, "Vector X"));
+                writer.Write(X.GetTextFormat(PrintType.Vertical,
+                    form: true, forwardFormatIndent: 3, formatIndent: 12, "Vector X"));
 
                 writer.WriteLine($"\r\n Determinant|A| = {A.Determinant,12:F2}");
 

@@ -7,8 +7,6 @@ namespace NumericalMethods
 {
     public static class FilesController
     {
-        private const double MaxVectorValue = 10.0;
-        private const int Indent = 3, SmallIndent = 1;
         private static int s_heightIndex, s_widthIndex;
 
         public static StreamWriter WriteResultToFile(string fileName, params string[] files)
@@ -85,7 +83,8 @@ namespace NumericalMethods
             return rightFileExtension;
         }
 
-        private static void GetMatrixOrVectorFromFile(Matrix matrix, Vector vector, bool setMatrix, StreamReader reader, int size)
+        private static void GetMatrixOrVectorFromFile(Matrix matrix, Vector vector, bool setMatrix, 
+            StreamReader reader, int size)
         {
             for (s_widthIndex = 1; s_widthIndex <= size; s_widthIndex++)
             {
@@ -147,151 +146,6 @@ namespace NumericalMethods
                 reader.Close();
             }
             return temporaryTable;
-        }
-
-        public static string GetMatrixAndVectorTextFormat(Matrix matrix, Vector vector, bool form,
-            int fs, int fd, string title)
-        {
-            int kMatrix, kVector, n = matrix.Size;
-            string text = "\r\n", frmta, frmtb, formName;
-            if (title != "") text += "  " + title + $"   Size = {n}\r\n";
-            if (form)
-            {
-                int maxKMatrix = 0, maxKVector = 0;
-                for (s_widthIndex = 1; s_widthIndex <= n; s_widthIndex++)
-                {
-                    for (s_heightIndex = 1; s_heightIndex <= n; s_heightIndex++)
-                        RefreshMaxK(matrix, vector: null, out kMatrix, ref maxKMatrix);
-                    RefreshMaxK(matrix: null, vector, out kVector, ref maxKVector);
-                }
-                kMatrix = fs + SmallIndent + maxKMatrix + SmallIndent + fd;
-                kVector = fs + SmallIndent + maxKVector + SmallIndent + fd + SmallIndent + SmallIndent;
-                formName = "F";
-            }
-            else
-            {
-                kMatrix = fs + Indent + fd + SmallIndent + SmallIndent + Indent; 
-                kVector = kMatrix + SmallIndent + SmallIndent;
-                formName = "E";
-            }
-            frmta = GetFormatString(fd, kMatrix, formName);
-            frmtb = GetFormatString(fd, kVector, formName);
-            for (s_widthIndex = 1; s_widthIndex <= n; s_widthIndex++)
-            {
-                for (s_heightIndex = 1; s_heightIndex <= n; s_heightIndex++)
-                    text += string.Format(frmta, matrix[s_widthIndex, s_heightIndex]);
-                text += " " + string.Format(frmtb, vector[s_widthIndex]) + "\r\n";
-            }
-            return text;
-        }
-
-        private static string GetFormatString(int fd, int k, string formName)
-        {
-            return "{0," + $"{k}" + ":" + formName + $"{fd}" + "}";
-        }
-
-        public static string GetMatrixTextFormat(Matrix matrix, bool form, int fs, int fd, string title)
-        {
-            string format = "", text = GetTextFormat(matrix, vector: null, form, fs, fd, title, ref format);
-            for (s_widthIndex = 1; s_widthIndex <= matrix.Size; s_widthIndex++)
-            {
-                for (s_heightIndex = 1; s_heightIndex <= matrix.Size; s_heightIndex++)
-                    text += string.Format(format, matrix[s_widthIndex, s_heightIndex]);
-                text += "\r\n";
-            }
-            return text;
-        }
-
-        private static string GetTextFormat(Matrix matrix, Vector vector, bool form, int fs, int fd, 
-            string title, ref string format)
-        {
-            bool getMatrix = matrix != null;
-            if (!getMatrix && vector == null) throw new ArgumentNullException();
-            int size = getMatrix ? matrix.Size : vector.Size, ka = 0;
-            string text = "\r\n";
-            if (title != "")
-            {
-                text += " " + title + $"  Size = {size}\r\n";
-            }
-            if (form)
-            {
-                int maxKa = 0;
-                if (getMatrix) 
-                    RefreshMatrixValues(matrix, ref ka, ref maxKa);
-                else 
-                    RefreshVectorValues(vector, ref ka, ref maxKa);
-                ka = fs + SmallIndent + maxKa + SmallIndent + fd;
-                format = GetFormatString(fd, ka, formatF: true);
-            }
-            else
-            {
-                ka = fs + Indent + fd + SmallIndent + SmallIndent + Indent;
-                format = GetFormatString(fd, ka, formatF: false);
-            }
-            return text;
-        }
-
-        private static string GetFormatString(int fd, int ka, bool formatF)
-        {
-            string format = formatF ? ":F" : $":E";
-            return "{0," + $"{ka}" + format + $"{fd}" + "}";
-        }
-
-        public static string GetVectorTextFormat(Vector vector, PrintType type, bool form, 
-            int fs, int fd, string title)
-        {
-            string format = "", 
-                   text = GetTextFormat(matrix: null, vector, form, fs, fd, title, ref format);
-            for (int index = 1; index <= vector.Size; index++)
-            {
-                switch (type)
-                {
-                    case PrintType.Horizontal:
-                        text += string.Format(format, vector[index]); 
-                        break;
-                    case PrintType.Vertical:
-                        text += $"{index,3}" + string.Format(format, vector[index]) + "\r\n"; 
-                        break;
-                }
-            }
-            if (type == PrintType.Horizontal)
-            {
-                text += "\r\n";
-            }
-            return text;
-        }
-
-        private static void RefreshMatrixValues(Matrix matrix, ref int ka, ref int maxKa)
-        {
-            for (s_widthIndex = 1; s_widthIndex <= matrix.Size; s_widthIndex++)
-            {
-                for (s_heightIndex = 1; s_heightIndex <= matrix.Size; s_heightIndex++)
-                {
-                    RefreshValues(ref maxKa, ref ka, absoluteValue: Math.Abs(matrix[s_widthIndex, s_heightIndex]));
-                }
-            }
-        }
-
-        private static void RefreshVectorValues(Vector vector, ref int ka, ref int maxKa)
-        {
-            for (int index = 1; index <= vector.Size; index++)
-            {
-                RefreshValues(ref maxKa, ref ka, absoluteValue: Math.Abs(vector[index]));
-            }
-        }
-
-        private static void RefreshMaxK(Matrix matrix, Vector vector, out int k, ref int maxK)
-        {
-            double value = matrix != null ?
-                Math.Abs(matrix[s_widthIndex, s_heightIndex]) : Math.Abs(vector[s_widthIndex]);
-            k = 0;
-            RefreshValues(ref maxK, ref k, value);
-        }
-
-        private static void RefreshValues(ref int maxKa, ref int ka, double absoluteValue)
-        {
-            ka = absoluteValue < MaxVectorValue ? 1 : (int)Math.Ceiling(Math.Log10(absoluteValue));
-            maxKa = Math.Max(maxKa, ka);
         }
     }
 }

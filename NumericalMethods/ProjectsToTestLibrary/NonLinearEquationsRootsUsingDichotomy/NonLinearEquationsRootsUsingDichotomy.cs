@@ -9,7 +9,7 @@ namespace NonLinearEquationsRootsUsingDichotomy
 {
     class NonLinearEquationsRootsUsingDichotomy
     {
-        static void Main(string[] args)
+        static void Main()
         {
             //Test1();
             //Test2(error: 1.0E-12);

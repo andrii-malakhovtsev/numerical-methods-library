@@ -8,9 +8,9 @@ namespace MatrixFunctionsTest
     {
         static StreamWriter writer;
 
-        static void Main(string[] args)
+        static void Main()
         {
-            MinorTest(n: 4, ii: 2, jj: 2); 
+            MinorTest(n: 4, ii: 2, jj: 2);
             DeterminantTest();
             CofactorTest("TestMatrixB.txt", I: 2, J: 3);
         }
@@ -39,7 +39,6 @@ namespace MatrixFunctionsTest
 
                 writer.WriteLine($"   Determinant_J = {Matrix.HeightDeterminant(A)}");
                 writer.WriteLine($"   Determinant_I = {Matrix.WidthDeterminant(A)}");
-
                 A.LowerUpperDecomposition(out Matrix L, out Matrix U);
                 writer.WriteLine($" Determinant(LU) = {A.Determinant}");
             }

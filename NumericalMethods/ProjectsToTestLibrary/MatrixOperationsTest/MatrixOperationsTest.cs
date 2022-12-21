@@ -9,7 +9,7 @@ namespace MatrixOperationsTest
     {
         static StreamWriter writer;
 
-        static void Main(string[] args)
+        static void Main()
         {
             MatrixGenerationTest();
             MatrixRotationTest();

@@ -122,7 +122,8 @@ namespace NumericalMethods
                 width--;
                 if (isSquare) height--;
             }
-            return isSquare ? this[width, height] : -this[width, height];
+            int sign = isSquare ? 1 : -1;
+            return sign * this[width, height];
         }
 
         public Matrix GetAttached()

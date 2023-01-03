@@ -15,17 +15,15 @@ namespace NumericalMethods
         {
             get 
             {
-                if (Points == null) return double.NaN; 
-                return Points[Length - 1].X - Points[0].X; 
+                return Points != null ? Points[Length - 1].X - Points[0].X : double.NaN; 
             }
         }
 
         public double RegionF
         {
             get 
-            { 
-                if (Points == null) return double.NaN; 
-                return Max.F - Min.F; 
+            {
+                return Points != null ? Max.F - Min.F : double.NaN; 
             }
         }
 
@@ -47,9 +45,7 @@ namespace NumericalMethods
         {
             get
             {
-                if (Points == null)
-                    return 0;
-                return Points.Length;
+                return Points == null ? 0 : Points.Length;
             }
         }
 

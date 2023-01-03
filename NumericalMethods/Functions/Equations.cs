@@ -27,14 +27,13 @@ namespace NumericalMethods
             const int maxIterationCount = 70;
             while (iterationCount < maxIterationCount)
             {
-                double correctRigthGraphEdge = rightGraphEdge;
-                if ((leftGraphEdge * rightGraphEdge) < 0) correctRigthGraphEdge -= leftGraphEdge;
-                graphExtremum = (leftGraphEdge + correctRigthGraphEdge) * 0.5;
-                iterationCount++;
-                if (root != null)
+                double correctRightGraphEdge = rightGraphEdge;
+                if ((leftGraphEdge * rightGraphEdge) < 0)
                 {
-                    root.Iterations = iterationCount;
+                    correctRightGraphEdge -= leftGraphEdge;
                 }
+                graphExtremum = (leftGraphEdge + correctRightGraphEdge) * 0.5;
+                iterationCount++;
                 if ((function(leftGraphEdge) * function(graphExtremum)) < 0)
                 {
                     rightGraphEdge = graphExtremum;
@@ -46,6 +45,7 @@ namespace NumericalMethods
                 double rootError = Math.Abs(function(graphExtremum));
                 if (root != null)
                 {
+                    root.Iterations = iterationCount;
                     root.Error = rootError;
                 }
                 if ((rootError < error) || ((rightGraphEdge - leftGraphEdge) * 10 < error)) break;

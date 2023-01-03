@@ -1,0 +1,9 @@
+Test3.txt
+
+Equation
+ Zeros Table of function: Test3
+  0   [  -9.02800,  -9.02400   ]   Root = -9.026745660542  Error =  6.3E-013  Iterations = 33
+  1   [  -8.36000,  -8.35600   ]   Root = -8.359301829677  Error =  2.6E-013  Iterations = 33
+  2   [  -7.12000,  -7.11600   ]   Root = -7.119857054716  Error =  3.1E-013  Iterations = 33
+  3   [  -6.40000,  -6.39600   ]   Root = -6.398352898917  Error =  6.7E-013  Iterations = 33
+

@@ -18,19 +18,8 @@ namespace NumericalMethods
             }
             if (form)
             {
-                int maxMatrixPower = 0, maxVectorPower = 0;
-                for (s_widthIndex = 1; s_widthIndex <= size; s_widthIndex++)
-                {
-                    for (s_heightIndex = 1; s_heightIndex <= size; s_heightIndex++)
-                    {
-                        RefreshMaxPower(matrix, vector: null, out _, ref maxMatrixPower);
-                    }
-                    RefreshMaxPower(matrix: null, vector, out _, ref maxVectorPower);
-                }
-                matrixPower = forwardFormatIndent + SmallIndent + maxMatrixPower + SmallIndent + formatIndent;
-                vectorPower = forwardFormatIndent + SmallIndent + maxVectorPower + SmallIndent + formatIndent
-                    + SmallIndent + SmallIndent;
-                formatName = "F";
+                FormMatrixAndVectorText(matrix, vector, forwardFormatIndent, formatIndent, 
+                    out matrixPower, out vectorPower, size, out formatName);
             }
             else
             {
@@ -49,6 +38,24 @@ namespace NumericalMethods
                 text += " " + string.Format(formatB, vector[s_widthIndex]) + "\r\n";
             }
             return text;
+        }
+
+        private static void FormMatrixAndVectorText(Matrix matrix, Vector vector, int forwardFormatIndent, int formatIndent, 
+            out int matrixPower, out int vectorPower, int size, out string formatName)
+        {
+            int maxMatrixPower = 0, maxVectorPower = 0;
+            for (s_widthIndex = 1; s_widthIndex <= size; s_widthIndex++)
+            {
+                for (s_heightIndex = 1; s_heightIndex <= size; s_heightIndex++)
+                {
+                    RefreshMaxPower(matrix, vector: null, out _, ref maxMatrixPower);
+                }
+                RefreshMaxPower(matrix: null, vector, out _, ref maxVectorPower);
+            }
+            matrixPower = forwardFormatIndent + SmallIndent + maxMatrixPower + SmallIndent + formatIndent;
+            vectorPower = forwardFormatIndent + SmallIndent + maxVectorPower + SmallIndent + formatIndent
+                + SmallIndent + SmallIndent;
+            formatName = "F";
         }
 
         private static string GetTextFormat(Matrix matrix, Vector vector, bool form, int forwardFormatIndent, 
@@ -75,7 +82,7 @@ namespace NumericalMethods
             {
                 power += Indent + formatIndent + SmallIndent + SmallIndent + Indent;
             }
-            format = GetStringFormat(formatIndent, power, formatF: form);
+            format = GetFormatString(formatIndent, power, formatF: form);
             return text;
         }
 
@@ -84,7 +91,7 @@ namespace NumericalMethods
             return "{0," + $"{power}" + ":" + formatName + $"{formatIndent}" + "}";
         }
 
-        private static string GetStringFormat(int formatIndent, int power, bool formatF)
+        private static string GetFormatString(int formatIndent, int power, bool formatF)
         {
             string format = formatF ? ":F" : $":E";
             return "{0," + $"{power}" + format + $"{formatIndent}" + "}";

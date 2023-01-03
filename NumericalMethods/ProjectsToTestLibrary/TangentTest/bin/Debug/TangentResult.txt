@@ -1,0 +1,8 @@
+TangentResult.txt
+
+ -------- TangentTest -------- 
+ Zeros Table of function: Fx
+  0   [  -0.19412,  -0.19118   ]   Root = -0.191915772539  Error =  6.2E-013  Iterations = 31
+  x0 = -0.5, xn = 0.5, n = 340
+  d1f = 2.97885797520743
+  d2f = -0.548656018745086

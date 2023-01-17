@@ -20,12 +20,12 @@ namespace NumericalMethods
         }
 
         private static double DichotomyAlgorithm(Func<double, double> function, Root root,
-            double error, double leftGraphEdge, double rightGraphEdge, out int iterationCount)
+            double error, double leftGraphEdge, double rightGraphEdge, out int iterationsCount)
         {
             double graphExtremum = 0.0;
-            iterationCount = 0;
-            const int maxIterationCount = 70;
-            while (iterationCount < maxIterationCount)
+            iterationsCount = 0;
+            const int maxIterationsCount = 70;
+            while (iterationsCount < maxIterationsCount)
             {
                 double correctRightGraphEdge = rightGraphEdge;
                 if ((leftGraphEdge * rightGraphEdge) < 0)
@@ -33,7 +33,7 @@ namespace NumericalMethods
                     correctRightGraphEdge -= leftGraphEdge;
                 }
                 graphExtremum = (leftGraphEdge + correctRightGraphEdge) * 0.5;
-                iterationCount++;
+                iterationsCount++;
                 if ((function(leftGraphEdge) * function(graphExtremum)) < 0)
                 {
                     rightGraphEdge = graphExtremum;
@@ -45,7 +45,7 @@ namespace NumericalMethods
                 double rootError = Math.Abs(function(graphExtremum));
                 if (root != null)
                 {
-                    root.Iterations = iterationCount;
+                    root.Iterations = iterationsCount;
                     root.Error = rootError;
                 }
                 if ((rootError < error) || ((rightGraphEdge - leftGraphEdge) * 10 < error)) break;

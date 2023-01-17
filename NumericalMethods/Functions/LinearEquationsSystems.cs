@@ -98,29 +98,12 @@ namespace NumericalMethods
                 return null;
             }
             int matrixSize = matrix.Size, widthIndex, heightIndex;
-            Matrix transposedMatrix = matrix.Transpose();
-            Matrix symmetricMatrix = transposedMatrix * matrix;
+            Matrix transposedMatrix = matrix.Transpose(), 
+                   symmetricMatrix = transposedMatrix * matrix;
             Vector transposedVector = Vector.Multiply(transposedMatrix, vector);
             Matrix alpha = new Matrix(matrixSize);
-            Vector betta = new Vector(matrixSize);
-            for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
-            {
-                for (heightIndex = 1; heightIndex <= matrixSize; heightIndex++)
-                {
-                    if (widthIndex != heightIndex)
-                    {
-                        alpha[widthIndex, heightIndex] =
-                              -symmetricMatrix[widthIndex, heightIndex] / symmetricMatrix[widthIndex, widthIndex];
-                    }
-                    else alpha[widthIndex, widthIndex] = 0.0;
-                }
-            }
-            Vector vectorX = new Vector(matrixSize);
-            for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
-            {
-                betta[widthIndex] = transposedVector[widthIndex] / symmetricMatrix[widthIndex, widthIndex];
-                vectorX[widthIndex] = betta[widthIndex];
-            }
+            Vector betta = new Vector(matrixSize), vectorX;
+            SeidelFirstAlgorithm(matrixSize, symmetricMatrix, transposedVector, alpha, betta, out vectorX);
             Vector vectorX1 = new Vector(matrixSize);
             double sum, error; numericPower = 0;
             while (true)
@@ -141,13 +124,33 @@ namespace NumericalMethods
                     vectorX[index] = vectorX1[index];
                 }
                 if (error < accuracy) 
-                {
                     return vectorX;
-                }
-                if (numericPower > MaxNumericPower) 
-                {
+                if (numericPower > MaxNumericPower)
                     return null;
+            }
+        }
+
+        private static void SeidelFirstAlgorithm(int matrixSize, Matrix symmetricMatrix,
+            Vector transposedVector, Matrix alpha, Vector betta, out Vector vectorX)
+        {
+            int widthIndex, heightIndex;
+            for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
+            {
+                for (heightIndex = 1; heightIndex <= matrixSize; heightIndex++)
+                {
+                    if (widthIndex != heightIndex)
+                    {
+                        alpha[widthIndex, heightIndex] =
+                              -symmetricMatrix[widthIndex, heightIndex] / symmetricMatrix[widthIndex, widthIndex];
+                    }
+                    else alpha[widthIndex, widthIndex] = 0.0;
                 }
+            }
+            vectorX = new Vector(matrixSize);
+            for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
+            {
+                betta[widthIndex] = transposedVector[widthIndex] / symmetricMatrix[widthIndex, widthIndex];
+                vectorX[widthIndex] = betta[widthIndex];
             }
         }
 

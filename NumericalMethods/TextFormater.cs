@@ -14,7 +14,7 @@ namespace NumericalMethods
             string text = "\r\n", formatA, formatB, formatName;
             if (title != "")
             {
-                text += "  " + title + $"   Size = {size}\r\n";
+                text += $"  {title}   Size = {size}\r\n";
             }
             if (form)
             {
@@ -67,7 +67,7 @@ namespace NumericalMethods
             string text = "\r\n";
             if (title != "")
             {
-                text += " " + title + $"  Size = {size}\r\n";
+                text += $" {title}  Size = {size}\r\n";
             }
             if (form)
             {

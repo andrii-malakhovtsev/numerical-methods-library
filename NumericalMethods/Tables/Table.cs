@@ -11,43 +11,21 @@ namespace NumericalMethods
         public List<Root> Roots { get; internal set; }
         public string Title { get; protected set; } = null;
 
-        public double RegionX
-        {
-            get 
-            {
-                return Points != null ? Points[Length - 1].X - Points[0].X : double.NaN; 
-            }
-        }
-
-        public double RegionF
-        {
-            get 
-            {
-                return Points != null ? Max.F - Min.F : double.NaN; 
-            }
-        }
-
+        public double RegionX {  get => Points != null ? Points[Length - 1].X - Points[0].X : double.NaN; }
+        public double RegionF { get => Points != null ? Max.F - Min.F : double.NaN; }
         public double X(int index)
         {
             if ((index >= 0) && (index < Length)) 
                 return Points[index].X;
             return double.NaN;
         }
-
         public double F(int index)
         {
             if ((index >= 0) && (index < Length)) 
                 return Points[index].F;
             return double.NaN;
         }
-
-        public int Length
-        {
-            get
-            {
-                return Points == null ? 0 : Points.Length;
-            }
-        }
+        public int Length { get => Points == null ? 0 : Points.Length; }
 
         public void ToArrays(out double[] x, out double[] f)
         {

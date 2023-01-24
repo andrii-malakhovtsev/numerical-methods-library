@@ -4,11 +4,9 @@ namespace NumericalMethods
 {
     public class DataTable : Table
     {
-        public string FileTable { get; set; }
-
         public DataTable(string path, string title)
         {
-            List<PointXF> temporaryTable = 
+            List<PointXF> temporaryTable =
                 FilesController.WriteDataTableToFile(dataTable: this, path, title);
             if (temporaryTable != null)
             {
@@ -22,8 +20,8 @@ namespace NumericalMethods
                     if (Max.F < Points[i].F) { Max = Points[i]; }
                 }
             }
-            else 
-            { 
+            else
+            {
                 Points = null;
                 Min = null;
                 Max = null;
@@ -31,6 +29,8 @@ namespace NumericalMethods
             Title = title;
             RootsLocation();
         }
+
+        public string FileTable { get; set; }
 
         public override string ToPrint(string comment)
         {

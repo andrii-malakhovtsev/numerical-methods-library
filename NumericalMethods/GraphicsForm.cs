@@ -13,7 +13,7 @@ namespace NumericalMethods
         {
             SetStandartValues();
             GraphicsChart.Titles[0].Text = title;
-            Series firstSeries = new Series();
+            var firstSeries = new Series();
             int width = x.Length - 1;
             double functionMin = double.MaxValue, functionMax = double.MinValue;
             for (int i = 0; i <= width; i++)
@@ -36,7 +36,7 @@ namespace NumericalMethods
         private GraphicsForm(Table table)
         {
             SetStandartValues();
-            Series firstSeries = new Series(); 
+            var firstSeries = new Series(); 
             int width = table.Length - 1;
             double functionMin = double.MaxValue, functionMax = double.MinValue;
             for (int i = 0; i <= width; i++)
@@ -60,11 +60,11 @@ namespace NumericalMethods
         {
             SetStandartValues();
             GraphicsChart.Titles[0].Text = title;
-            Series fisrtSeries = new Series();
+            var fisrtSeries = new Series();
             int firstTableWidth = SetSeries(firstTable, fisrtSeries, markerColor: Color.Red,
                 markerBorderColor: Color.DarkRed);
             GraphicsChart.Series[0] = fisrtSeries;
-            Series secondSeries = new Series();
+            var secondSeries = new Series();
             int secondTableWidth = SetSeries(secondTable, secondSeries, markerColor: Color.Blue,
                 markerBorderColor: Color.DarkBlue);
             GraphicsChart.Series[1] = secondSeries;
@@ -129,21 +129,21 @@ namespace NumericalMethods
 
         public static void SingleGraphic(double[] X, double[] Y, string title, int Nx, int Ny)
         {
-            GraphicsForm singleGraphic = new GraphicsForm(X, Y, title);
+            var singleGraphic = new GraphicsForm(X, Y, title);
             SetGraphic(singleGraphic, Nx, Ny);
         }
 
         public static void SingleGraphic(Table table, int Nx, int Ny)
         {
             if (table == null) return;
-            GraphicsForm singleGraphic = new GraphicsForm(table);
+            var singleGraphic = new GraphicsForm(table);
             SetGraphic(singleGraphic, Nx, Ny);
         }
 
         public static void DoublyGraphic(Table firstTable, Table secondTable, string title, int Nx, int Ny)
         {
             if (firstTable == null || secondTable == null) return;
-            GraphicsForm doublyGraphic = new GraphicsForm(firstTable, secondTable, title);
+            var doublyGraphic = new GraphicsForm(firstTable, secondTable, title);
             SetGraphic(doublyGraphic, Nx, Ny);
         }
 

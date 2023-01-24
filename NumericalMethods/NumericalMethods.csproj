@@ -67,8 +67,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="FilesController.cs" />
-    <Compile Include="TextFormater.cs" />
+    <Compile Include="Controllers\FilesController.cs" />
+    <Compile Include="Controllers\TextFormater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GraphicsForm.resx">

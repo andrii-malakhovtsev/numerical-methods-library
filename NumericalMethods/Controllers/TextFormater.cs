@@ -4,7 +4,7 @@ namespace NumericalMethods
 {
     public static class TextFormater
     {
-        private const int Indent = 3, SmallIndent = 1;
+        private const int NormalIndent = 3, SmallIndent = 1;
         private static int s_heightIndex, s_widthIndex;
 
         public static string GetMatrixAndVectorTextFormat(Matrix matrix, Vector vector, bool form,
@@ -23,7 +23,7 @@ namespace NumericalMethods
             }
             else
             {
-                matrixPower = forwardFormatIndent + Indent + formatIndent + SmallIndent + SmallIndent + Indent;
+                matrixPower = forwardFormatIndent + NormalIndent + formatIndent + SmallIndent + SmallIndent + NormalIndent;
                 vectorPower = matrixPower + SmallIndent + SmallIndent;
                 formatName = "E";
             }
@@ -59,8 +59,7 @@ namespace NumericalMethods
         }
 
         private static string GetTextFormat(Matrix matrix, Vector vector, bool form, int forwardFormatIndent, 
-            int formatIndent,
-            string title, ref string format)
+            int formatIndent, string title, ref string format)
         {
             bool getMatrix = matrix != null;
             int size = getMatrix ? matrix.Size : vector.Size, power = forwardFormatIndent;
@@ -80,7 +79,7 @@ namespace NumericalMethods
             }
             else
             {
-                power += Indent + formatIndent + SmallIndent + SmallIndent + Indent;
+                power += NormalIndent + formatIndent + SmallIndent + SmallIndent + NormalIndent;
             }
             format = GetFormatString(formatIndent, power, formatF: form);
             return text;

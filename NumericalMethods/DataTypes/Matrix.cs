@@ -9,24 +9,6 @@ namespace NumericalMethods
         private const int MinimalCofactorSize = 2;
         private static int s_widthIndex, s_heightIndex;
         private enum Operator { Plus, Minus, Multiply }
-        public double[,] MatrixValues { get; set; }
-        public double Determinant { get; internal set; } = double.NaN;
-        public int Size { get; set; }
-        public double this[int widthIndex, int heightIndex]
-        {
-            get
-            {
-                if (ValuesInsideMatrix(widthIndex, heightIndex))
-                    return MatrixValues[widthIndex - 1, heightIndex - 1];
-                else
-                    return double.NaN;
-            }
-            set
-            {
-                if (ValuesInsideMatrix(widthIndex, heightIndex))
-                    MatrixValues[widthIndex - 1, heightIndex - 1] = value;
-            }
-        }
 
         public Matrix(int size, MatrixType type)
         {
@@ -75,6 +57,25 @@ namespace NumericalMethods
             if (FilesController.SetMatrixFromFile(matrix: this, path)) return;
             Size = 0;
             MatrixValues = null;
+        }
+
+        public double[,] MatrixValues { get; set; }
+        public double Determinant { get; internal set; } = double.NaN;
+        public int Size { get; set; }
+        public double this[int widthIndex, int heightIndex]
+        {
+            get
+            {
+                if (ValuesInsideMatrix(widthIndex, heightIndex))
+                    return MatrixValues[widthIndex - 1, heightIndex - 1];
+                else
+                    return double.NaN;
+            }
+            set
+            {
+                if (ValuesInsideMatrix(widthIndex, heightIndex))
+                    MatrixValues[widthIndex - 1, heightIndex - 1] = value;
+            }
         }
 
         private void MatrixLoop(Action<int, int> method)
@@ -128,7 +129,7 @@ namespace NumericalMethods
 
         public Matrix GetAttached()
         {
-            Matrix attachedMatrix = new Matrix(Size);
+            var attachedMatrix = new Matrix(Size);
             MatrixLoop(delegate (int widthIndex, int heightIndex)
             {
                 attachedMatrix[heightIndex, widthIndex] = Cofactor(widthIndex, heightIndex);
@@ -157,7 +158,7 @@ namespace NumericalMethods
                 return null;
             }
             Vector vector, vectorB;
-            Matrix inversedMatrix = new Matrix(Size);
+            var inversedMatrix = new Matrix(Size);
             for (s_heightIndex = 1; s_heightIndex <= Size; s_heightIndex++)
             {
                 vectorB = new Vector(Size); vectorB[s_heightIndex] = 1.0;
@@ -227,7 +228,7 @@ namespace NumericalMethods
         private static Matrix MathOperation(Matrix firstMatrix, Matrix secondMatrix, Operator @operator)
         {
             int size = firstMatrix.Size;
-            Matrix operatedMatrix = new Matrix(size);
+            var operatedMatrix = new Matrix(size);
             MatrixLoop(delegate (int widthIndex, int heightIndex)
             {
                 double toAdd = firstMatrix[widthIndex, heightIndex];
@@ -270,7 +271,7 @@ namespace NumericalMethods
         private static Matrix MultiplyMatrixByNumeric(Matrix matrix, double numeric)
         {
             int size = matrix.Size;
-            Matrix multipliedMatrix = new Matrix(size);
+            var multipliedMatrix = new Matrix(size);
             MatrixLoop(delegate (int widthIndex, int heightIndex)
             {
                 multipliedMatrix[widthIndex, heightIndex] = 0.0;
@@ -348,7 +349,7 @@ namespace NumericalMethods
 
         public Matrix Minor(int outsideWidthIndex, int outsideHeightIndex)
         {
-            Matrix minor = new Matrix(Size - 1);
+            var minor = new Matrix(Size - 1);
             MatrixLoop(delegate (int widthIndex, int heightIndex)
             {
                 minor[widthIndex, heightIndex] =
@@ -360,7 +361,8 @@ namespace NumericalMethods
 
         public void LowerUpperDecomposition(out Matrix lowerMatrix, out Matrix upperMatrix)
         {
-            lowerMatrix = new Matrix(Size); upperMatrix = new Matrix(Size);
+            lowerMatrix = new Matrix(Size); 
+            upperMatrix = new Matrix(Size);
             for (s_heightIndex = 1; s_heightIndex <= Size; s_heightIndex++)
             {
                 upperMatrix[1, s_heightIndex] = this[1, s_heightIndex];
@@ -414,7 +416,7 @@ namespace NumericalMethods
 
         private Matrix GetMatrix(bool transposed)
         {
-            Matrix matrix = new Matrix(Size);
+            var matrix = new Matrix(Size);
             MatrixLoop(delegate (int widthIndex, int heightIndex)
             {
                 matrix[widthIndex, heightIndex] = transposed ?
@@ -425,7 +427,7 @@ namespace NumericalMethods
 
         public Matrix Rotation(bool toRight)
         {
-            Matrix rotatedMatrix = new Matrix(Size);
+            var rotatedMatrix = new Matrix(Size);
             MatrixLoop(delegate (int widthIndex, int heightIndex)
             {
                 rotatedMatrix[heightIndex, widthIndex] = toRight ?

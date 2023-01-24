@@ -19,7 +19,7 @@ namespace NumericalMethods
             }
             int matrixSize = matrix.Size;
             Matrix matrixCopy = matrix.Copy();
-            Vector vectorX = new Vector(matrixSize);
+            var vectorX = new Vector(matrixSize);
             determinantVector = new Vector(matrixSize);
             int widthIndex;
             for (int matrixIndex = 1; matrixIndex <= matrixSize; matrixIndex++)
@@ -52,8 +52,8 @@ namespace NumericalMethods
                 return null; 
             }
             int matrixSize = matrix.Size, widthIndex, heightIndex;
-            Matrix alpha = new Matrix(matrixSize);
-            Vector vectorX = new Vector(matrixSize);
+            var alpha = new Matrix(matrixSize);
+            var vectorX = new Vector(matrixSize);
             for (widthIndex = 1; widthIndex <= matrixSize; widthIndex++)
             {
                 for (heightIndex = 1; heightIndex <= matrixSize; heightIndex++)
@@ -101,10 +101,10 @@ namespace NumericalMethods
             Matrix transposedMatrix = matrix.Transpose(), 
                    symmetricMatrix = transposedMatrix * matrix;
             Vector transposedVector = Vector.Multiply(transposedMatrix, vector);
-            Matrix alpha = new Matrix(matrixSize);
-            Vector betta = new Vector(matrixSize), vectorX;
-            SeidelFirstAlgorithm(matrixSize, symmetricMatrix, transposedVector, alpha, betta, out vectorX);
-            Vector vectorX1 = new Vector(matrixSize);
+            var alpha = new Matrix(matrixSize);
+            var betta = new Vector(matrixSize);
+            SeidelFirstAlgorithm(matrixSize, symmetricMatrix, transposedVector, alpha, betta, out Vector vectorX);
+            var vectorX1 = new Vector(matrixSize);
             double sum, error; numericPower = 0;
             while (true)
             {
@@ -158,7 +158,7 @@ namespace NumericalMethods
         {
             GaussAlgorithm(matrix, vector, out double determinant, out int matrixSize,
                 out int sign, out Matrix matrixCopy, out Vector vectorCopy);
-            Vector result = new Vector(matrixSize);
+            var result = new Vector(matrixSize);
             result[matrixSize] = vectorCopy[matrixSize];
             for (int widthIndex = matrixSize - 1; widthIndex >= 1; widthIndex--)
             {

@@ -8,23 +8,6 @@ namespace NumericalMethods
     public class Vector
     {
         public const double MaxValue = 10.0;
-        public double[] VectorValues { get; set; }
-        public int Size { get; set; }
-        public double this[int index]
-        {
-            get
-            {
-                if (IndexInsideVector(index))
-                    return VectorValues[index - 1];
-                else
-                    return double.NaN;
-            }
-            set
-            {
-                if (IndexInsideVector(index))
-                    VectorValues[index - 1] = value;
-            }
-        }
 
         public Vector(int size)
         {
@@ -54,6 +37,24 @@ namespace NumericalMethods
             {
                 VectorValues = null;
                 Size = 0;
+            }
+        }
+
+        public double[] VectorValues { get; set; }
+        public int Size { get; set; }
+        public double this[int index]
+        {
+            get
+            {
+                if (IndexInsideVector(index))
+                    return VectorValues[index - 1];
+                else
+                    return double.NaN;
+            }
+            set
+            {
+                if (IndexInsideVector(index))
+                    VectorValues[index - 1] = value;
             }
         }
 

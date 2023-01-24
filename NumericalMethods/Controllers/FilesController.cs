@@ -13,16 +13,16 @@ namespace NumericalMethods
         {
             string projectDirectory =
                    Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            StreamWriter writer = new StreamWriter(fileName);
+            var writer = new StreamWriter(fileName);
             foreach (string file in files)
             {
                 writer.WriteLine(file + ":\r\n");
                 writer.Flush();
-                using (StreamReader reader = new StreamReader(projectDirectory + '\\' + file))
+                using (var reader = new StreamReader(projectDirectory + '\\' + file))
                 {
                     reader.BaseStream.CopyTo(writer.BaseStream);
                 }
-                writer.WriteLine("\r\n// -------------------------------------- //\r\n");
+                writer.WriteLine("\r\n// " + new string('-', 38) + " //\r\n");
             }
             writer.Write(fileName);
             writer.WriteLine("\n");
@@ -32,10 +32,10 @@ namespace NumericalMethods
         public static void ReadMatrixWithVectorFromFile(string path, out Matrix matrix,
             out Vector vector, out int readInt)
         {
-            FileInfo file = new FileInfo(path);
+            var file = new FileInfo(path);
             if (CheckForTextExtension(file.Extension))
             {
-                StreamReader reader = new StreamReader(file.OpenRead());
+                var reader = new StreamReader(file.OpenRead());
                 readInt = Convert.ToInt32(reader.ReadLine()); 
                 matrix = new Matrix(readInt); 
                 vector = new Vector(readInt);
@@ -61,11 +61,11 @@ namespace NumericalMethods
         private static bool SetMatrixOrVectorFromFile(Matrix matrix, Vector vector, string path)
         {
             bool setMatrix = matrix != null;
-            FileInfo file = new FileInfo(path);
+            var file = new FileInfo(path);
             bool rightFileExtension = CheckForTextExtension(file.Extension);
             if (rightFileExtension)
             {
-                StreamReader reader = new StreamReader(file.OpenRead());
+                var reader = new StreamReader(file.OpenRead());
                 if (setMatrix)
                 {
                     matrix.Size = Convert.ToInt32(reader.ReadLine());
@@ -128,13 +128,13 @@ namespace NumericalMethods
 
         public static List<PointXF> WriteDataTableToFile(DataTable dataTable, string path, string title)
         {
-            List<PointXF> temporaryTable = new List<PointXF>();
-            FileInfo file = new FileInfo(path);
+            var temporaryTable = new List<PointXF>();
+            var file = new FileInfo(path);
             int index = -1;
             dataTable.FileTable = $"\r\n Table {title} in file {file.Name}:\r\n";
             if (CheckForTextExtension(file.Extension))
             {
-                StreamReader reader = new StreamReader(file.OpenRead());
+                var reader = new StreamReader(file.OpenRead());
                 while (!reader.EndOfStream)
                 {
                     index++;

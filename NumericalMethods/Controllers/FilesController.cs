@@ -58,7 +58,7 @@ namespace NumericalMethods
             }
         }
 
-        private static bool SetMatrixOrVectorFromFile(Matrix matrix, Vector vector, string path)
+        private static bool SetMatrixOrVectorFromFile(string path, Matrix matrix = null, Vector vector = null)
         {
             bool setMatrix = matrix != null;
             var file = new FileInfo(path);
@@ -77,13 +77,13 @@ namespace NumericalMethods
                     vector.VectorValues = new double[vector.Size];
                 }
                 int size = setMatrix ? matrix.Size : vector.Size;
-                GetMatrixOrVectorFromFile(matrix, vector, setMatrix, reader, size);
+                GetMatrixAndVectorFromFile(matrix, vector, setMatrix, reader, size);
                 reader.Close();
             }
             return rightFileExtension;
         }
 
-        private static void GetMatrixOrVectorFromFile(Matrix matrix, Vector vector, bool setMatrix, 
+        private static void GetMatrixAndVectorFromFile(Matrix matrix, Vector vector, bool setMatrix, 
             StreamReader reader, int size)
         {
             for (s_widthIndex = 1; s_widthIndex <= size; s_widthIndex++)
@@ -103,12 +103,12 @@ namespace NumericalMethods
 
         public static bool SetMatrixFromFile(Matrix matrix, string path)
         {
-            return SetMatrixOrVectorFromFile(matrix, vector: null, path);
+            return SetMatrixOrVectorFromFile(path, matrix);
         }
 
         public static bool SetVectorFromFile(Vector vector, string path)
         {
-            return SetMatrixOrVectorFromFile(matrix: null, vector, path);
+            return SetMatrixOrVectorFromFile(path, matrix: null, vector);
         }
 
         private static string[] GetDataFromFile(StreamReader reader)

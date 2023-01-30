@@ -51,7 +51,7 @@ namespace DataTableTest
                 string txt = $"\r\n\r\n\r\n Read lines: {table.Length,0}";
                 txt += table.ToPrint("   Processing file *.txt");
                 writer.WriteLine(txt);
-                GraphicsForm.SingleGraphic(table, widthPoin5sCount: 300, heightPoin5sCount: 500);
+                GraphicsForm.SingleGraphic(table, widthPointsCount: 300, heightPointsCount: 500);
                 table.ToTxtFile("DataTableAdditionalResult.txt", " New results form");
             }
         }

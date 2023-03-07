@@ -46,7 +46,7 @@ namespace NumericalMethods
             }
         }
 
-        public Matrix(int size)
+        internal Matrix(int size)
         {
             Size = size;
             MatrixValues = new double[Size, Size];
@@ -59,13 +59,13 @@ namespace NumericalMethods
             MatrixValues = null;
         }
 
-        public double[,] MatrixValues { get; set; }
+        internal double[,] MatrixValues { private get; set; }
 
         public double Determinant { get; internal set; } = double.NaN;
 
         public int Size { get; set; }
 
-        public double this[int widthIndex, int heightIndex]
+        internal double this[int widthIndex, int heightIndex]
         {
             get
             {
@@ -130,7 +130,7 @@ namespace NumericalMethods
             return sign * this[width, height];
         }
 
-        public Matrix GetAttached()
+        internal Matrix GetAttached()
         {
             var attachedMatrix = new Matrix(Size);
             MatrixLoop(delegate (int widthIndex, int heightIndex)
@@ -189,7 +189,7 @@ namespace NumericalMethods
             return false;
         }
 
-        public static double InversionError(Matrix attachedMatrix, Matrix matrix)
+        internal static double InversionError(Matrix attachedMatrix, Matrix matrix)
         {
             double error = -10.0;
             Matrix E = attachedMatrix * matrix;

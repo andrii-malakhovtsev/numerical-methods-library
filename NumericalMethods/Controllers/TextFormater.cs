@@ -96,7 +96,7 @@ namespace NumericalMethods
             return "{0," + $"{power}" + format + $"{formatIndent}" + "}";
         }
 
-        public static string GetMatrixTextFormat(Matrix matrix, bool form, int forwardFormatIndent,
+        internal static string GetMatrixTextFormat(Matrix matrix, bool form, int forwardFormatIndent,
             int formatIndent, string title)
         {
             string format = "",
@@ -113,7 +113,7 @@ namespace NumericalMethods
             return text;
         }
 
-        public static string GetVectorTextFormat(Vector vector, PrintType type, bool form,
+        internal static string GetVectorTextFormat(Vector vector, PrintType type, bool form,
             int forwardFormatIndent, int formatIndent, string title)
         {
             string format = "",

@@ -30,7 +30,7 @@ namespace NumericalMethods
             RootsLocation();
         }
 
-        public string FileTable { get; set; }
+        internal string FileTable { get; set; }
 
         public override string ToPrint(string comment)
         {

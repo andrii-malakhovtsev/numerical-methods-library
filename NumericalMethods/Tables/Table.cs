@@ -15,25 +15,25 @@ namespace NumericalMethods
 
         public string Title { get; protected set; } = null;
 
-        public double RegionX { get => Points != null ? Points[Length - 1].X - Points[0].X : double.NaN; }
+        public int Length { get => Points == null ? 0 : Points.Length; }
 
-        public double RegionF { get => Points != null ? Max.F - Min.F : double.NaN; }
+        private double RegionX { get => Points != null ? Points[Length - 1].X - Points[0].X : double.NaN; }
 
-        public double X(int index)
+        private double RegionF { get => Points != null ? Max.F - Min.F : double.NaN; }
+
+        internal double X(int index)
         {
             if ((index >= 0) && (index < Length))
                 return Points[index].X;
             return double.NaN;
         }
 
-        public double F(int index)
+        internal double F(int index)
         {
             if ((index >= 0) && (index < Length))
                 return Points[index].F;
             return double.NaN;
         }
-
-        public int Length { get => Points == null ? 0 : Points.Length; }
 
         public void ToArrays(out double[] x, out double[] f)
         {
@@ -104,7 +104,7 @@ namespace NumericalMethods
             return table;
         }
 
-        public virtual string FunctionTable()
+        internal virtual string FunctionTable()
         {
             string txt = "\r\n Function table " + Title + " : \r\n";
             for (int i = 0; i < Length; i++)

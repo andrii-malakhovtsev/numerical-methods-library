@@ -9,7 +9,7 @@ namespace NumericalMethods
     {
         public const double MaxValue = 10.0;
 
-        public Vector(int size)
+        internal Vector(int size)
         {
             DeclareVectorValues(size);
         }
@@ -40,11 +40,11 @@ namespace NumericalMethods
             }
         }
 
-        public double[] VectorValues { get; set; }
+        internal double[] VectorValues { private get; set; }
 
-        public int Size { get; set; }
+        internal int Size { get; set; }
 
-        public double this[int index]
+        internal double this[int index]
         {
             get
             {
@@ -79,7 +79,7 @@ namespace NumericalMethods
             }
         }
 
-        public Vector Copy()
+        internal Vector Copy()
         {
             Vector vectorCopy = new Vector(Size);
             for (int i = 1; i <= vectorCopy.Size; i++)
@@ -109,7 +109,7 @@ namespace NumericalMethods
             }
         }
 
-        private static Vector MathOperation(Vector firstVector, Vector secondVector,
+        internal static Vector MathOperation(Vector firstVector, Vector secondVector,
             bool toSum)
         {
             if (firstVector.Size != secondVector.Size) return null;

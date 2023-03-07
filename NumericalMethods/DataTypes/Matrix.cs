@@ -65,6 +65,19 @@ namespace NumericalMethods
 
         public int Size { get; set; }
 
+        private Matrix Attached 
+        { 
+            get
+            {
+                var attachedMatrix = new Matrix(Size);
+                MatrixLoop(delegate (int widthIndex, int heightIndex)
+                {
+                    attachedMatrix[heightIndex, widthIndex] = Cofactor(widthIndex, heightIndex);
+                });
+                return attachedMatrix;
+            } 
+        }
+         
         internal double this[int widthIndex, int heightIndex]
         {
             get
@@ -130,16 +143,6 @@ namespace NumericalMethods
             return sign * this[width, height];
         }
 
-        internal Matrix GetAttached()
-        {
-            var attachedMatrix = new Matrix(Size);
-            MatrixLoop(delegate (int widthIndex, int heightIndex)
-            {
-                attachedMatrix[heightIndex, widthIndex] = Cofactor(widthIndex, heightIndex);
-            });
-            return attachedMatrix;
-        }
-
         public Matrix FirstInversion(out double error)
         {
             error = 0.0;
@@ -148,7 +151,7 @@ namespace NumericalMethods
                 return null;
             }
             double reversedDeterminant = 1.0 / Determinant;
-            Matrix attachedMatrix = reversedDeterminant * GetAttached();
+            Matrix attachedMatrix = reversedDeterminant * Attached;
             error = InversionError(attachedMatrix, this);
             return attachedMatrix;
         }

@@ -43,7 +43,7 @@ namespace NumericalMethods
             return toReturn;
         }
 
-        public static double Exponent(double x, double error)
+        public static double Exponent(double x, double error = 1.0e-20)
         {
             double exponent = 1.0;
             if (x == 0) return exponent;

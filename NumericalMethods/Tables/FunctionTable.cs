@@ -30,7 +30,7 @@ namespace NumericalMethods
 
         protected Func<double, double> Function { get; set; }
 
-        public override void RootsCorrection(double eps)
+        public override void RootsCorrection(double eps = 1.0E-12)
         {
             if (Roots == null) return;
             foreach (Root root in Roots)

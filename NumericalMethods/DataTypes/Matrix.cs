@@ -60,8 +60,11 @@ namespace NumericalMethods
         }
 
         public double[,] MatrixValues { get; set; }
+
         public double Determinant { get; internal set; } = double.NaN;
+
         public int Size { get; set; }
+
         public double this[int widthIndex, int heightIndex]
         {
             get

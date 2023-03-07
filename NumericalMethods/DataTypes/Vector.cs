@@ -41,7 +41,9 @@ namespace NumericalMethods
         }
 
         public double[] VectorValues { get; set; }
+
         public int Size { get; set; }
+
         public double this[int index]
         {
             get

@@ -4,12 +4,10 @@ namespace NumericalMethods
 {
     public class FunctionTable : Table
     {
-        protected Func<double, double> function;
-
         public FunctionTable(double xFirst, double xSpecific, int specificValue,
             Func<double, double> function, string title)
         {
-            Title = title; this.function = function; Points = new PointXF[specificValue + 1];
+            Title = title; Function = function; Points = new PointXF[specificValue + 1];
             Min = new PointXF(double.NaN, double.MaxValue);
             Max = new PointXF(double.NaN, double.MinValue);
             double hx = (xSpecific - xFirst) / specificValue, xByIndex;
@@ -17,7 +15,7 @@ namespace NumericalMethods
             for (int index = 0; index <= specificValue; index++)
             {
                 xByIndex = xFirst + index * hx;
-                Points[index] = new PointXF(xByIndex, this.function(xByIndex));
+                Points[index] = new PointXF(xByIndex, Function(xByIndex));
                 if (Min.F > Points[index].F)
                 {
                     Min = Points[index];
@@ -30,12 +28,14 @@ namespace NumericalMethods
             RootsLocation();
         }
 
+        protected Func<double, double> Function { get; set; }
+
         public override void RootsCorrection(double eps)
         {
             if (Roots == null) return;
             foreach (Root root in Roots)
             {
-                Equations.Dichotomy(function, root, eps);
+                Equations.Dichotomy(Function, root, eps);
             }
         }
 

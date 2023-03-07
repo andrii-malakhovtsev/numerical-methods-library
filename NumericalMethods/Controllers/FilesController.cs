@@ -101,12 +101,12 @@ namespace NumericalMethods
             }
         }
 
-        public static bool SetMatrixFromFile(Matrix matrix, string path)
+        internal static bool SetMatrixFromFile(Matrix matrix, string path)
         {
             return SetMatrixOrVectorFromFile(path, matrix);
         }
 
-        public static bool SetVectorFromFile(Vector vector, string path)
+        internal static bool SetVectorFromFile(Vector vector, string path)
         {
             return SetMatrixOrVectorFromFile(path, matrix: null, vector);
         }
@@ -126,7 +126,7 @@ namespace NumericalMethods
             return extension == textExtension;
         }
 
-        public static List<PointXF> WriteDataTableToFile(DataTable dataTable, string path, string title)
+        internal static List<PointXF> WriteDataTableToFile(DataTable dataTable, string path, string title)
         {
             var temporaryTable = new List<PointXF>();
             var file = new FileInfo(path);

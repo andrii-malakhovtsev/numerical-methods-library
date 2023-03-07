@@ -11,7 +11,7 @@ namespace NumericalMethods
                 out iterationCount);
         }
 
-        public static void Dichotomy(Func<double, double> function, Root root, double error)
+        internal static void Dichotomy(Func<double, double> function, Root root, double error)
         {
             root.Iterations = 0;
             root.X = DichotomyAlgorithm(function, root, error, leftGraphEdge: root.LeftEdgeX,

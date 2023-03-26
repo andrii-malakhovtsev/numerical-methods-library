@@ -1,6 +1,19 @@
-# Numerical analysis mini-library
+# Numerical analysis library for C# projects
+Project repository also contains folder *"ProjectsToTestLibrary"* where the </br>
+projects to test the library are located showing how it works.
 
-## *Description*
+## Installation
+1. Go to <a href="https://github.com/malandrii/numerical-methods-library/releases">Releases</a>, choose the latest release and click the "numerical-methods.dll" or
+just click <a href="https://github.com/malandrii/numerical-methods-library/releases/download/v1.0/numerical-methods.dll">here</a>.
+2. In Visual Studio right click the "References" of your project, then "Add Reference..." and then "Browse..." button in the right bottom corner of the opened window and choose the downloaded "numerical-methods.dll" (uses .txt files to save and get the information) </br>
+> References (right click) => Add Reference... => Browse... => Choose "numerical-methods.dll" you have downloaded
+3. Write next line in your C# project:
+```c#
+// C#
+using NumericalMethods;
+```
+
+## Features
 
 Library has methods that help solving:
 * Linear Equation Systems
@@ -17,21 +30,9 @@ Library has methods that help solving:
 * Numeric Serius Sum
 * Tangent
 
-## *How to use*
+## Example of usage
 
-*take .dll file from Releases and you can use it in your Windows project* </br>
-*uses .txt files to save and get information*
-```c#
-// C#
-using NumericalMethods;
-```
-
-Project also has folder *"ProjectsToTestLibrary"* where </br>
-projects to test located showing how it works.
-
-## *Examples of usage*
-
-For example let's test *Data table* 
+For example let's test "*Data table*" with the project to test a library located below:
 > NumericalMethods\ProjectsToTestLibrary\DataTableTest\DataTableTest.cs
 ```c#
 using System.IO;
@@ -260,10 +261,9 @@ with *TestTable.txt* being
        4,45125628140704      1,208782658425
        6,87135678391960      1,361932752994
        6,67688442211055      1,585068938691
-
 ```
-### *Run the app* </br>
-And we get in the same folder files *DataTableResult.txt* and *DataTableAdditionalResult.txt* </br>
+### Run the app </br>
+And we get files *DataTableResult.txt* and *DataTableAdditionalResult.txt* in the same folder as the .exe to run the app is located in the project</br>
 > DataTableResult.txt
 ```
 DataTableResult.txt
@@ -295,6 +295,6 @@ New results form
  
 ```
 
-and the graphic picture in the opened app from data in the text file
+and the graphic picture of the txt-file data will apear in the opened window
 
 ![graphic](https://user-images.githubusercontent.com/111363234/206312290-afcc5019-f3b3-46b4-8e56-44b1aa2f2910.png)

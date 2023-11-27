@@ -61,10 +61,7 @@ namespace NumericalMethods
             writer.Close();
         }
 
-        public virtual string ToPrint(string comment)
-        {
-            return comment;
-        }
+        public virtual string ToPrint(string comment) => comment;
 
         public virtual void RootsCorrection(double eps) { } // don't use abstract
 

@@ -102,14 +102,10 @@ namespace NumericalMethods
         }
 
         internal static bool SetMatrixFromFile(Matrix matrix, string path)
-        {
-            return SetMatrixOrVectorFromFile(path, matrix);
-        }
+            => SetMatrixOrVectorFromFile(path, matrix);
 
         internal static bool SetVectorFromFile(Vector vector, string path)
-        {
-            return SetMatrixOrVectorFromFile(path, matrix: null, vector);
-        }
+            => SetMatrixOrVectorFromFile(path, matrix: null, vector);
 
         private static string[] GetDataFromFile(StreamReader reader)
         {

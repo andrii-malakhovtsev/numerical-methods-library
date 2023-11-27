@@ -9,10 +9,7 @@ namespace NumericalMethods
     {
         public const double MaxValue = 10.0;
 
-        internal Vector(int size)
-        {
-            DeclareVectorValues(size);
-        }
+        internal Vector(int size) => DeclareVectorValues(size);
 
         public Vector(int size, VectorType type)
         {
@@ -158,14 +155,10 @@ namespace NumericalMethods
         }
 
         public static Vector operator *(double numeric, Vector vector)
-        {
-            return MultiplyVectorByNumeric(vector, numeric);
-        }
+            => MultiplyVectorByNumeric(vector, numeric);
 
         public static Vector operator *(Vector vector, double numeric)
-        {
-            return MultiplyVectorByNumeric(vector, numeric);
-        }
+            => MultiplyVectorByNumeric(vector, numeric);
 
         public static Vector Multiply(Matrix matrix, Vector vector)
         {

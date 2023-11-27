@@ -7,7 +7,7 @@ namespace NumericalMethods
 {
     public partial class GraphicsForm : Form
     {
-        public GraphicsForm() { InitializeComponent(); }
+        public GraphicsForm() => InitializeComponent(); 
 
         private GraphicsForm(double[] x, double[] y, string title)
         {

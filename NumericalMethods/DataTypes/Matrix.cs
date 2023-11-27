@@ -217,19 +217,13 @@ namespace NumericalMethods
         }
 
         public static Matrix operator +(Matrix firstMatrix, Matrix secondMatrix)
-        {
-            return MathOperation(firstMatrix, secondMatrix, Operator.Plus);
-        }
+            => MathOperation(firstMatrix, secondMatrix, Operator.Plus);
 
         public static Matrix operator -(Matrix firstMatrix, Matrix secondMatrix)
-        {
-            return MathOperation(firstMatrix, secondMatrix, Operator.Minus);
-        }
+            => MathOperation(firstMatrix, secondMatrix, Operator.Minus);
 
         public static Matrix operator *(Matrix firstMatrix, Matrix secondMatrix)
-        {
-            return MathOperation(firstMatrix, secondMatrix, Operator.Multiply);
-        }
+            => MathOperation(firstMatrix, secondMatrix, Operator.Multiply);
 
         private static Matrix MathOperation(Matrix firstMatrix, Matrix secondMatrix, Operator @operator)
         {
@@ -265,14 +259,10 @@ namespace NumericalMethods
         }
 
         public static Matrix operator *(double numeric, Matrix matrix)
-        {
-            return MultiplyMatrixByNumeric(matrix, numeric);
-        }
+            => MultiplyMatrixByNumeric(matrix, numeric);
 
         public static Matrix operator *(Matrix matrix, double numeric)
-        {
-            return MultiplyMatrixByNumeric(matrix, numeric);
-        }
+            => MultiplyMatrixByNumeric(matrix, numeric);
 
         private static Matrix MultiplyMatrixByNumeric(Matrix matrix, double numeric)
         {
@@ -322,14 +312,10 @@ namespace NumericalMethods
         }
 
         public static double HeightDeterminant(Matrix matrix)
-        {
-            return DimensionRelatedDeterminant(matrix, heightDimension: true);
-        }
+            => DimensionRelatedDeterminant(matrix, heightDimension: true);
 
         public static double WidthDeterminant(Matrix matrix)
-        {
-            return DimensionRelatedDeterminant(matrix, heightDimension: false);
-        }
+            => DimensionRelatedDeterminant(matrix, heightDimension: false);
 
         private static double DimensionRelatedDeterminant(Matrix matrix, bool heightDimension)
         {
@@ -410,15 +396,9 @@ namespace NumericalMethods
             }
         }
 
-        public Matrix Transpose()
-        {
-            return GetMatrix(transposed: true);
-        }
+        public Matrix Transpose() => GetMatrix(transposed: true);
 
-        public Matrix Copy()
-        {
-            return GetMatrix(transposed: false);
-        }
+        public Matrix Copy() => GetMatrix(transposed: false);
 
         private Matrix GetMatrix(bool transposed)
         {

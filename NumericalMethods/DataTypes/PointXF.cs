@@ -12,9 +12,6 @@
 
         internal double F { get; private set; } = double.NaN;
 
-        internal string ToPrint()
-        {
-            return $"    ({X,16:F10},{F,16:F10} )";
-        }
+        internal string ToPrint() => $"    ({X,16:F10},{F,16:F10} )";
     }
 }

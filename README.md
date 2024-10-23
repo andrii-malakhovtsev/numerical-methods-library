@@ -60,7 +60,7 @@ namespace DataTableTest
 }
 ```
 [See README_TestTable.txt](https://raw.githubusercontent.com/malandrii/numerical-methods-library/refs/heads/master/README_TestTable.txt)
-### Run the app </br>
+## Running the app </br>
 And we get files *DataTableResult.txt* and *DataTableAdditionalResult.txt* in the same folder as the .exe to run the app is located in the project</br>
 > DataTableResult.txt
 ```

@@ -1,17 +1,17 @@
-# Numerical analysis library for C# projects
-Project repository also contains folder *"ProjectsToTestLibrary"* where the </br>
-projects to test the library are located showing how it works.
+# Numerical Analysis Library for C# Projects
+
+Library for numerical analysis, designed to help solve a variety of mathematical and computational problems. Additionally, the repository includes a folder named *ProjectsToTestLibrary*, which contains example projects demonstrating how to use the library.
 
 ## Installation
-1. Go to <a href="https://github.com/malandrii/numerical-methods-library/releases">Releases</a>, choose the latest release and click the "numerical-methods.dll" or
-just click <a href="https://github.com/malandrii/numerical-methods-library/releases/download/v1.0/numerical-methods.dll">here</a>.
-2. In Visual Studio right click the "References" of your project, then "Add Reference..." and then "Browse..." button in the right bottom corner of the opened window and choose the downloaded "numerical-methods.dll" (uses .txt files to save and get the information) </br>
-> References (right click) => Add Reference... => Browse... => Choose "numerical-methods.dll" you have downloaded
-3. Write next line in your C# project:
-```c#
-// C#
-using NumericalMethods;
-```
+
+1. Download the latest release from the [Releases](https://github.com/malandrii/numerical-methods-library/releases) page. Click on `numerical-methods.dll`, or download it directly [here](https://github.com/malandrii/numerical-methods-library/releases/download/v1.0/numerical-methods.dll).
+
+2. In Visual Studio, right-click on the **References** section of your project, select **Add Reference...**, and click the **Browse...** button in the lower-right corner of the window. Choose the downloaded `numerical-methods.dll` file.
+   - **Path:** References (right-click) ➔ Add Reference... ➔ Browse... ➔ Choose `numerical-methods.dll`.
+   
+3. Include the following line in your C# project:
+   ```csharp
+   using NumericalMethods;
 
 ## Features
 
@@ -32,7 +32,7 @@ Library has methods that help solving:
 
 ## Example of usage
 
-For example let's test "*Data table*" with the project to test a library located below:
+For example let's test "`Data table`" with the project to test a library located below:
 > NumericalMethods\ProjectsToTestLibrary\DataTableTest\DataTableTest.cs
 ```c#
 using System.IO;
@@ -61,7 +61,7 @@ namespace DataTableTest
 ```
 [See README_TestTable.txt](https://raw.githubusercontent.com/malandrii/numerical-methods-library/refs/heads/master/README_TestTable.txt)
 ## Running the app </br>
-And we get files *DataTableResult.txt* and *DataTableAdditionalResult.txt* in the same folder as the .exe to run the app is located in the project</br>
+Running this example generates files `DataTableResult.txt` and `DataTableAdditionalResult.txt`, in the same folder as the `.exe` file. </br>
 > DataTableResult.txt
 ```
 DataTableResult.txt
@@ -93,6 +93,6 @@ New results form
  
 ```
 
-and the graphic picture of the txt-file data will apear in the opened window
+Running the app will also open a window displaying the graphic representation picture of the `.txt`-file data.
 
 ![graphic](https://user-images.githubusercontent.com/111363234/206312290-afcc5019-f3b3-46b4-8e56-44b1aa2f2910.png)

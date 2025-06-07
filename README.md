@@ -4,7 +4,7 @@ Library for numerical analysis, designed to help solve a variety of mathematical
 
 ## Installation
 
-1. Download the latest release from the [Releases](https://github.com/malandrii/numerical-methods-library/releases) page. Click on `numerical-methods.dll`, or download it directly [here](https://github.com/malandrii/numerical-methods-library/releases/download/v1.0/numerical-methods.dll).
+1. Download the latest release from the [Releases](https://github.com/andrii-malakhovtsev/numerical-methods-library/releases) page. Click on `numerical-methods.dll`, or download it directly [here](https://github.com/andrii-malakhovtsev/numerical-methods-library/releases/download/v1.0/numerical-methods.dll).
 
 2. In Visual Studio, right-click on the **References** section of your project, select **Add Reference...**, and click the **Browse...** button in the lower-right corner of the window. Choose the downloaded `numerical-methods.dll` file.
    - **Path:** References (right-click) ➔ Add Reference... ➔ Browse... ➔ Choose `numerical-methods.dll`.
